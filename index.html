@@ -6,7 +6,7 @@
 <title>nuxnce — mean something</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@500..800&family=Inter+Tight:wght@300..700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400..800&family=Inter+Tight:wght@300..700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root{--f-display:"Syne","Helvetica Neue",Arial,sans-serif;--f-serif:"Syne","Helvetica Neue",Arial,sans-serif;--f-body:"Inter Tight","Helvetica Neue",Arial,sans-serif;--f-mono:"Space Mono",ui-monospace,Menlo,Consolas,monospace;--bg:#06060a;--fg:#f2f1ee;--mute:#8d8c92;--line:#ffffff22;--red:#ff2a2a;--blue:#1b4dff;--org:#ff8a1f;--grn:#38d67a;
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -138,10 +138,26 @@ section.exp{max-width:none;margin:0;padding:0;height:100vh;height:100svh;min-hei
 .exp-bar button:focus-visible{outline:1px solid var(--fg);outline-offset:4px}
 .exp-bar .exp-auto{margin-left:6px;padding:6px 14px;border:1px solid var(--line);border-radius:99px}
 .exp-bar .exp-auto.on{background:#ffffff14}
-.exp-w{font-size:clamp(44px,9vw,150px);line-height:.95;letter-spacing:-.045em;max-width:none;transition:filter .9s ease,opacity .9s ease}
+.exp-w{display:inline-block;color:#fff;opacity:.32;font-size:clamp(44px,9vw,150px);line-height:.95;letter-spacing:-.045em;max-width:none;transition:filter .9s ease,opacity .9s ease}
 .exp-s{font-family:var(--f-mono);font-size:clamp(12px,1.3vw,15px);letter-spacing:.01em;color:var(--mute);margin-top:14px;max-width:none;transition:filter .9s ease,opacity .9s ease}
 .exp-w.out,.exp-s.out{filter:blur(16px);opacity:0;transition-duration:.35s}
 .exp-s{min-height:1.5em}
+
+/* how is that possible: glass tiles with a blurred gradient orb that comes into focus on hover */
+.rules{border-top:0;display:grid;grid-template-columns:repeat(2,1fr);gap:14px 20px;margin-top:48px}
+.rules div{position:relative;align-items:center;gap:22px;padding:24px 26px;border:1px solid var(--line);border-radius:22px;background:#ffffff08;backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);overflow:hidden;font-size:clamp(17px,1.7vw,24px);line-height:1.25;transition:background .5s,transform .5s}
+.rules div::after{content:"";position:absolute;left:-10%;right:-10%;bottom:-70%;height:100%;background:radial-gradient(55% 60% at 20% 100%,var(--c1),transparent 70%);filter:blur(24px);opacity:0;transition:opacity .6s;pointer-events:none}
+.rules div:hover{padding-left:26px;color:var(--fg);background:#ffffff12;transform:translateY(-3px)}
+.rules div:hover::after{opacity:.5}
+.rules i{flex:none;min-width:34px;padding:0;font-size:13px;color:var(--mute)}
+.rules div:nth-child(1){--c1:var(--red);--c2:var(--org)}
+.rules div:nth-child(2){--c1:var(--org);--c2:var(--grn)}
+.rules div:nth-child(3){--c1:var(--grn);--c2:var(--blue)}
+.rules div:nth-child(4){--c1:var(--blue);--c2:var(--red)}
+.rules div:nth-child(5){--c1:var(--red);--c2:var(--blue)}
+.rules div:nth-child(6){--c1:var(--org);--c2:var(--blue)}
+.rules div{font-weight:400}
+@media(max-width:720px){.rules{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -168,7 +184,7 @@ section.exp{max-width:none;margin:0;padding:0;height:100vh;height:100svh;min-hei
 
 <section class="exp" id="exp" aria-label="From noise to meaning: an animated illustration of what nuxnce does">
 <canvas id="expc" aria-hidden="true"></canvas>
-<div class="exp-cap"><div class="exp-bar" role="group" aria-label="animation phase"><button type="button" data-i="0"><i></i>noise</button><button type="button" data-i="1"><i></i>sameness</button><button type="button" data-i="2"><i></i>nuxnces</button><button type="button" data-i="3"><i></i>meaning</button><button type="button" class="exp-auto">pause</button></div><h2 class="exp-w" data-p="0">noise</h2><p class="exp-s">everyone is talking. few are saying anything relevant.</p></div>
+<div class="exp-cap"><div class="exp-bar" role="group" aria-label="animation phase"><button type="button" data-i="0"><i></i>noise</button><button type="button" data-i="1"><i></i>sameness</button><button type="button" data-i="2"><i></i>difference</button><button type="button" data-i="3"><i></i>meaning</button><button type="button" class="exp-auto">pause</button></div><h2 class="exp-w" data-p="0">noise</h2><p class="exp-s">everyone is talking. few are staying relevant.</p></div>
 </section>
 
 <section class="intro xsec" id="x">
@@ -198,7 +214,7 @@ section.exp{max-width:none;margin:0;padding:0;height:100vh;height:100svh;min-hei
 <h2 class="rv" data-focus>How is that possible</h2>
 <div class="rules rv">
 <div><i>01</i>Committed partnership</div>
-<div><i>02</i>Extensive thoughtfulness behind every concept and output</div>
+<div><i>02</i>Extensive thoughtfulness</div>
 <div><i>03</i>No compromises—in anything</div>
 <div><i>04</i>Special conditions</div>
 <div><i>05</i>Playful environment inclusive for everyone</div>
@@ -208,7 +224,7 @@ section.exp{max-width:none;margin:0;padding:0;height:100vh;height:100svh;min-hei
 
 <section id="work">
 <h2 class="rv" data-focus>Selected work</h2>
-<p class="rv" style="margin-top:28px;font-size:clamp(22px,3vw,40px);font-weight:300;letter-spacing:-.01em;line-height:1.2">TBA</p>
+<p class="rv" style="margin-top:28px;font-size:clamp(14px,1.5vw,18px);font-weight:300;letter-spacing:-.01em;line-height:1.2">TBA</p>
 </section>
 
 <section class="contact" id="contact">
@@ -273,8 +289,8 @@ var g=cv.getContext('2d'),W=0,H=0,P=[],S=[],geo={cx:0,cy:0,gw:0},ptr={x:-999,y:-
 var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
 var PAL=[[255,42,42],[255,138,31],[56,214,122],[27,77,255]];
 var D=[5500,5500,5500,9000],TOT=25500,starts=[0,5500,11000,16500],NP=4;
-var WORDS=['noise','sameness','nuxnces','meaning'];
-var SUBS=['everyone is talking. few are saying anything relevant.','brands merge into a sea of genericness.','we look for distinctive attributes.','and make it mean something.'];
+var WORDS=['noise','sameness','difference','meaning'];
+var SUBS=['everyone is talking. few are staying relevant.','brands merge into a sea of genericness.','we look for nuxnces—distinctive attributes.','and make them mean something.'];
 var word=sec.querySelector('.exp-w'),sub=sec.querySelector('.exp-s'),bar=sec.querySelectorAll('.exp-bar button[data-i]'),auto=sec.querySelector('.exp-auto'),wrap=sec.querySelector('.exp-bar');
 /* logo mask: the site's own logo images sampled into a bitmap, split into edge and inner pixels */
 function loadMask(){
