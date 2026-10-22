@@ -138,7 +138,7 @@ section.exp{max-width:none;margin:0;padding:0;height:100vh;height:100svh;min-hei
 .exp-bar button:focus-visible{outline:1px solid var(--fg);outline-offset:4px}
 .exp-bar .exp-auto{margin-left:6px;padding:6px 14px;border:1px solid var(--line);border-radius:99px}
 .exp-bar .exp-auto.on{background:#ffffff14}
-.exp-w{display:inline-block;color:#fff;opacity:.32;font-size:clamp(44px,9vw,150px);line-height:.95;letter-spacing:-.045em;max-width:none;transition:filter .9s ease,opacity .9s ease}
+.exp-w{display:inline-block;color:#fff;opacity:.32;font-size:clamp(34px,6vw,88px);line-height:.95;letter-spacing:-.045em;max-width:none;transition:filter .9s ease,opacity .9s ease}
 .exp-s{font-family:var(--f-mono);font-size:clamp(12px,1.3vw,15px);letter-spacing:.01em;color:var(--mute);margin-top:14px;max-width:none;transition:filter .9s ease,opacity .9s ease}
 .exp-w.out,.exp-s.out{filter:blur(16px);opacity:0;transition-duration:.35s}
 .exp-s{min-height:1.5em}
@@ -200,6 +200,9 @@ nav::before,nav::after{content:"";position:absolute;inset:0;z-index:-1;pointer-e
 nav::before{-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);-webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 55%,transparent 100%);mask-image:linear-gradient(to bottom,#000 0%,#000 55%,transparent 100%)}
 nav::after{-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px);-webkit-mask-image:linear-gradient(to bottom,transparent 0%,#000 40%,#000 85%,transparent 100%);mask-image:linear-gradient(to bottom,transparent 0%,#000 40%,#000 85%,transparent 100%)}
 nav.on::before,nav.on::after{opacity:1}
+
+/* background layer sized to the large viewport so mobile browser bars do not resize it (look unchanged) */
+.bg{top:0;left:0;right:0;bottom:auto;height:100vh;height:100lvh;transform:translateZ(0);backface-visibility:hidden;contain:paint}
 </style>
 </head>
 <body>
@@ -471,7 +474,7 @@ new IntersectionObserver(function(es){vis=es[0].isIntersecting;if(vis){if(!t0)t0
 })();
 </script>
 <script>
-window.__nxD={en:{"eeyebrow": "distinctive brand ecosystem", "ew0": "seed", "ew1": "core", "ew2": "growth", "ew3": "ecosystem", "es0": "any brand starts as one of many identical dots.", "es1": "strategy: the core everything grows from.", "es2": "ideas and communication reach every touchpoint.", "es3": "a living system, distinctive down to the last detail.", "ehint": "scroll", "earia": "Animation: how a distinctive brand ecosystem grows from a single nuxnce", "el0": "strategy", "el1": "idea", "el2": "communication", "el3": "anything", "et0": "research|differentiation|positioning|game plan|core DNA & alignment", "et1": "concept|story|naming|art direction|campaign idea", "et2": "social|campaigns|all touchpoints|PR|CSR", "et3": "identity|web|packaging|events|products"}};window.__nxD.sk=window.__nxD.en;
+window.__nxD={en:{"eeyebrow": "distinctive brand ecosystem", "ew0": "seed", "ew1": "core", "ew2": "growth", "ew3": "ecosystem", "es0": "any brand starts as one of many identical dots.", "es1": "strategy: the core everything grows from.", "es2": "ideas and communication reach every touchpoint.", "es3": "a living system, distinctive down to the last detail.", "ehint": "scroll", "earia": "Animation: how a distinctive brand ecosystem grows from a single nuxnce", "el0": "strategy", "el1": "idea", "el2": "communication", "el3": "anything", "et0": "research|differentiation|positioning|game plan|core DNA & alignment", "et1": "concept|story|naming|creative & art direction|campaign idea", "et2": "social|campaigns|touchpoints|PR|CSR", "et3": "identity|digital experiences|packaging|events|products"}};window.__nxD.sk=window.__nxD.en;
 </script>
 <script>
 (function(){
