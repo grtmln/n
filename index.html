@@ -191,7 +191,7 @@ section.eco{max-width:none;margin:0;padding:0;height:420vh;position:relative}
 
 /* top bar (logo + menu) slides in from the top on load */
 @keyframes navin{from{transform:translateY(-110%);opacity:0}to{transform:none;opacity:1}}
-nav{animation:navin 1.1s cubic-bezier(.16,1,.3,1) .25s both}
+nav{animation:navin 1.1s cubic-bezier(.16,1,.3,1) .25s backwards}
 @media (prefers-reduced-motion:reduce){nav{animation:none}}
 
 /* top bar blends into the page at the very top; once scrolled, a soft panel fades in whose lower edge dissolves gradually (same size as the bar) */
