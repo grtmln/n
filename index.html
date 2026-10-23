@@ -204,6 +204,14 @@ nav.on::before,nav.on::after{opacity:1}
 /* background layer sized to the large viewport so mobile browser bars do not resize it (look unchanged) */
 .bg{top:0;left:0;right:0;bottom:auto;height:100vh;height:100lvh;transform:translateZ(0);backface-visibility:hidden;contain:paint}
 </style>
+<style>
+/* hero: soft arrival on load (same feel as the 404 page) */
+@keyframes heroin{from{opacity:0;transform:translateY(24px);filter:blur(12px)}to{opacity:1;transform:none;filter:blur(0)}}
+.hero h1,.hero .sub{animation:heroin 1s cubic-bezier(.16,1,.3,1) backwards}
+.hero h1{animation-delay:.35s}
+.hero .sub{animation-delay:.6s}
+@media (prefers-reduced-motion:reduce){.hero h1,.hero .sub{animation:none}}
+</style>
 </head>
 <body>
 <div class="bg"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="blob b4"></div></div>
@@ -238,7 +246,7 @@ nav.on::before,nav.on::after{opacity:1}
 <p class="xnote rv"><b>nuxnce</b> /ˈnuːɑːns/ — pronounced exactly like “nuance”.<br>sounds the same. reads differently.</p>
 <p class="lab-lead rv" data-focus>Experimenting in our DNAme</p>
 <div class="lab-cols">
-<p class="rv">By swapping the letter “a” for an “x,” we add a subtle shift that decisively breaks the predictability.</p>
+<p class="rv">By swapping the letter “a” for an “x”, we add a subtle shift that decisively breaks the predictability.</p>
 <p class="rv">A concept inspired not only by underground culture, rooted in the essence of our work.</p>
 <p class="rv">Exploring novel territories, we seek this—unknown variable—for any brand to stand out.</p>
 </div>
