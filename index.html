@@ -236,35 +236,6 @@ nav.on::before,nav.on::after{opacity:1}
 .die-said{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 /* d20 end */
 
-/* how: principles */
-.how-wrap{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(32px,6vw,96px);align-items:start}
-.how-head{position:sticky;top:20vh;align-self:start}
-.how-head h2{max-width:8em}
-.how-count{margin-top:clamp(28px,6vh,64px)}
-.how-num{display:flex;align-items:flex-end;gap:14px}
-.how-now{display:inline-block;font-family:var(--f-display);font-weight:800;font-size:clamp(64px,9vw,132px);line-height:.8;letter-spacing:-.06em;font-variant-numeric:tabular-nums;color:var(--fg)}
-.how-now.tick{animation:howtick .7s cubic-bezier(.16,1,.3,1)}
-@keyframes howtick{from{opacity:0;filter:blur(10px);transform:translateY(.14em)}to{opacity:1;filter:none;transform:none}}
-.how-of{font-family:var(--f-mono);font-size:13px;letter-spacing:.08em;color:var(--mute);padding-bottom:.2em}
-.how-bar{display:flex;gap:6px;margin-top:24px}
-.how-bar i{display:block;flex:0 0 clamp(22px,3vw,40px);height:2px;background:var(--line);border-radius:2px;position:relative;overflow:hidden}
-.how-bar i::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--c1),var(--c2));transform:scaleX(0);transform-origin:left;transition:transform .8s cubic-bezier(.16,1,.3,1)}
-.how-bar i.on::after{transform:none}
-.how-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
-.how-list li{position:relative}
-.how-list .row{position:relative;isolation:isolate;display:grid;grid-template-columns:clamp(34px,4vw,54px) minmax(0,1fr) clamp(28px,2.8vw,40px);align-items:center;column-gap:12px;padding:clamp(22px,4.4vh,40px) 0;border-bottom:1px solid var(--line);opacity:calc(.3 + .7*var(--f,1));filter:blur(calc((1 - var(--f,1))*2.4px));transform:translateX(calc((1 - var(--f,1))*-12px))}
-.how-list i{font-style:normal;font-family:var(--f-mono);font-size:13px;letter-spacing:.06em;color:var(--mute)}
-.how-list span{font-family:var(--f-display);font-weight:700;font-size:clamp(24px,3.1vw,46px);line-height:1.04;letter-spacing:-.045em;color:var(--fg)}
-.how-list .row::before{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;background:linear-gradient(90deg,var(--c1),var(--c2));transform:scaleX(0);transform-origin:left;transition:transform .9s cubic-bezier(.16,1,.3,1)}
-.how-list li.on .row::before{transform:none}
-.how-list .row::after{content:"";position:absolute;inset:-8% -10%;z-index:-1;background:radial-gradient(50% 120% at 14% 100%,var(--c1),transparent 70%);filter:blur(36px);opacity:0;transition:opacity .9s;pointer-events:none}
-.how-list li.on .row::after{opacity:.26}
-.how-list em{justify-self:end;width:100%;aspect-ratio:652/386;background:var(--xmark) center/contain no-repeat;opacity:0;transform:scale(.7) rotate(-8deg);transition:opacity .5s,transform .7s cubic-bezier(.16,1,.3,1)}
-.how-list li.on em{opacity:1;transform:none;animation:howflick 6s infinite .8s}
-@keyframes howflick{0%,10%{opacity:1}10.3%{opacity:.1}11%{opacity:1}11.6%{opacity:.25}12.2%,100%{opacity:1}}
-.how-list li:nth-child(2){transition-delay:.08s}.how-list li:nth-child(3){transition-delay:.16s}.how-list li:nth-child(4){transition-delay:.24s}.how-list li:nth-child(5){transition-delay:.32s}.how-list li:nth-child(6){transition-delay:.4s}
-@media (max-width:900px){.how-wrap{grid-template-columns:1fr;gap:28px}.how-head{position:static}.how-count{display:none}}
-@media (prefers-reduced-motion:reduce){.how-list .row{filter:none;transform:none;opacity:calc(.55 + .45*var(--f,1))}.how-list li.on em{animation:none}.how-now.tick{animation:none}}
 </style>
 </head>
 <body>
@@ -340,19 +311,14 @@ nav.on::before,nav.on::after{opacity:1}
 </section>
 
 <section id="how">
-<div class="how-wrap">
-<div class="how-head">
 <h2 class="rv" data-focus>How is that possible</h2>
-<div class="how-count rv" aria-hidden="true"><div class="how-num"><span class="how-now">01</span><span class="how-of">/ 06</span></div><div class="how-bar"><i style="--c1:var(--red);--c2:var(--org)"></i><i style="--c1:var(--org);--c2:var(--grn)"></i><i style="--c1:var(--grn);--c2:var(--blue)"></i><i style="--c1:var(--blue);--c2:var(--red)"></i><i style="--c1:var(--red);--c2:var(--blue)"></i><i style="--c1:var(--org);--c2:var(--blue)"></i></div></div>
-</div>
-<ol class="how-list">
-<li class="rv" style="--c1:var(--red);--c2:var(--org)"><div class="row"><i>01</i><span>Committed partnership</span><em aria-hidden="true"></em></div></li>
-<li class="rv" style="--c1:var(--org);--c2:var(--grn)"><div class="row"><i>02</i><span>Extensive thoughtfulness</span><em aria-hidden="true"></em></div></li>
-<li class="rv" style="--c1:var(--grn);--c2:var(--blue)"><div class="row"><i>03</i><span>No compromises—in anything</span><em aria-hidden="true"></em></div></li>
-<li class="rv" style="--c1:var(--blue);--c2:var(--red)"><div class="row"><i>04</i><span>Special conditions</span><em aria-hidden="true"></em></div></li>
-<li class="rv" style="--c1:var(--red);--c2:var(--blue)"><div class="row"><i>05</i><span>Playful environment inclusive for everyone</span><em aria-hidden="true"></em></div></li>
-<li class="rv" style="--c1:var(--org);--c2:var(--blue)"><div class="row"><i>06</i><span>Fairness in every respect</span><em aria-hidden="true"></em></div></li>
-</ol>
+<div class="rules rv">
+<div><i>01</i>Committed partnership</div>
+<div><i>02</i>Extensive thoughtfulness</div>
+<div><i>03</i>No compromises—in anything</div>
+<div><i>04</i>Special conditions</div>
+<div><i>05</i>Playful environment inclusive for everyone</div>
+<div><i>06</i>Fairness in every respect</div>
 </div>
 </section>
 
@@ -1475,41 +1441,6 @@ addEventListener('resize',function(){resize();if(reduce)draw(3000)});
 resize();draw(reduce?3000:performance.now());
 })();
 /* die:end */
-</script>
-<script>
-/* how:start */
-(function(){
-var how=document.getElementById('how');if(!how)return;
-var rows=[].slice.call(how.querySelectorAll('.how-list li')),bars=[].slice.call(how.querySelectorAll('.how-bar i')),num=how.querySelector('.how-now');
-if(!rows.length)return;
-var mk=document.querySelector('#cur img');if(mk&&mk.src)how.style.setProperty('--xmark','url("'+mk.src+'")');
-var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches,fine=matchMedia('(hover:hover) and (pointer:fine)').matches;
-var py=innerHeight*.5,tpy=py,vis=false,raf=0,act=-1;
-if(fine)addEventListener('pointermove',function(e){tpy=e.clientY},{passive:true});
-function ss(t){t=Math.max(0,Math.min(1,t));return t*t*(3-2*t)}
-function frame(){
-  raf=0;if(!vis)return;
-  py+=((fine?tpy:innerHeight*.5)-py)*(reduce?1:.14);
-  var best=0,bd=1e9,i,r,b,d;
-  for(i=0;i<rows.length;i++){
-    b=rows[i].getBoundingClientRect();d=Math.abs(b.top+b.height/2-py);
-    rows[i].style.setProperty('--f',(1-ss(d/(innerHeight*.46))).toFixed(3));
-    if(d<bd){bd=d;best=i}
-  }
-  if(best!==act){
-    act=best;
-    rows.forEach(function(r,i){r.classList.toggle('on',i===act)});
-    bars.forEach(function(r,i){r.classList.toggle('on',i<=act)});
-    if(num){num.textContent=('0'+(act+1)).slice(-2);num.classList.remove('tick');void num.offsetWidth;num.classList.add('tick')}
-  }
-  raf=requestAnimationFrame(frame);
-}
-new IntersectionObserver(function(es){
-  vis=es[0].isIntersecting;
-  if(vis&&!raf)raf=requestAnimationFrame(frame);
-},{rootMargin:'80px'}).observe(how);
-})();
-/* how:end */
 </script>
 </body>
 </html>
