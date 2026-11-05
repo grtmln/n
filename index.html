@@ -160,8 +160,8 @@ section.exp{max-width:none;margin:0;padding:0;height:100vh;height:100svh;min-hei
 @media(max-width:720px){.rules{grid-template-columns:1fr}}
 
 /* brand ecosystem animation */
-section.eco{max-width:none;margin:0;padding:0;height:420vh;position:relative}
-.eco-pin{position:sticky;top:0;height:100vh;height:100svh;min-height:560px;overflow:hidden}
+section.eco{max-width:none;margin:0;padding:0;height:auto;position:relative}
+.eco-pin{position:relative;height:100vh;height:100svh;min-height:560px;overflow:hidden}
 .eco-pin canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
 .eco-eye{position:absolute;left:5vw;top:clamp(84px,12vh,140px);max-width:none;font-family:var(--f-mono);font-size:12px;letter-spacing:.01em;color:var(--mute);pointer-events:none}
 .eco-cap{position:absolute;left:5vw;right:5vw;bottom:max(4.5vh,24px);pointer-events:none}
@@ -173,6 +173,9 @@ section.eco{max-width:none;margin:0;padding:0;height:420vh;position:relative}
 .eco-bar button i{display:block;width:clamp(48px,7vw,84px);height:2px;background:linear-gradient(90deg,var(--fg) var(--p,0%),#ffffff33 var(--p,0%));margin-bottom:8px}
 .eco-bar button:hover,.eco-bar button.on{color:var(--fg)}
 .eco-bar button:focus-visible{outline:1px solid var(--fg);outline-offset:4px}
+.eco-bar{align-items:flex-end}
+.eco-bar .eco-auto{margin-left:6px;padding:6px 14px;border:1px solid var(--line);border-radius:99px;color:var(--mute);transition:color .4s,background .4s}
+.eco-bar .eco-auto:hover{color:var(--fg);background:#ffffff14}
 .eco-hint{position:absolute;right:5vw;bottom:max(4.5vh,24px);padding-bottom:6px;font-family:var(--f-mono);font-size:12px;color:var(--mute);pointer-events:none;transition:opacity .6s}
 .eco-hint::after{content:" ↓";display:inline-block;animation:ecoh 1.8s ease-in-out infinite}
 @keyframes ecoh{50%{transform:translateY(4px)}}
@@ -344,9 +347,8 @@ html.menu-open{overflow:hidden;scrollbar-gutter:stable}
 <div class="eco-cap">
 <span class="eco-w"></span>
 <p class="eco-s"></p>
-<div class="eco-bar" role="group" aria-label="animation phase"><button type="button" data-i="0"><i></i><span>seed</span></button><button type="button" data-i="1"><i></i><span>core</span></button><button type="button" data-i="2"><i></i><span>growth</span></button><button type="button" data-i="3"><i></i><span>ecosystem</span></button></div>
+<div class="eco-bar" role="group" aria-label="animation phase"><button type="button" data-i="0"><i></i><span>seed</span></button><button type="button" data-i="1"><i></i><span>core</span></button><button type="button" data-i="2"><i></i><span>growth</span></button><button type="button" data-i="3"><i></i><span>ecosystem</span></button><button type="button" class="eco-auto" aria-label="Pause animation">pause</button></div>
 </div>
-<span class="eco-hint">scroll</span>
 </div>
 </section>
 
@@ -586,8 +588,9 @@ var pin=sec.querySelector('.eco-pin'),g=cv.getContext('2d');
 var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
 var PAL=[[255,42,42],[255,138,31],[56,214,122],[27,77,255]],WH=[242,241,238];
 var STEPS=[0,.16,.44,.72,1];
-var elW=sec.querySelector('.eco-w'),elS=sec.querySelector('.eco-s'),bar=sec.querySelectorAll('.eco-bar button'),hint=sec.querySelector('.eco-hint');
+var elW=sec.querySelector('.eco-w'),elS=sec.querySelector('.eco-s'),bar=sec.querySelectorAll('.eco-bar button[data-i]'),auto=sec.querySelector('.eco-auto'),hint=sec.querySelector('.eco-hint');
 var W=0,H=0,dpr=1,cx=0,cy=0,Rx=1,Ry=1,vis=false,raf=0,last=0,cur=reduce?1:0,tgt=cur,ready=reduce,step=-1,tmr=0,barKey='';
+var DUR=17000,playing=false,started=false,done=reduce;
 var ptr={x:-9999,y:-9999},dots=[],sp=34;
 var NODES=[],EDGES=[],core,PRIM=[];
 
@@ -818,31 +821,39 @@ function syncUI(p){
   if(k!==barKey){barKey=k;for(j=0;j<bar.length;j++)bar[j].firstChild.style.setProperty('--p',key[j]+'%')}
   if(hint)hint.style.opacity=p<.03?1:0;
 }
-function onScroll(){
-  if(reduce)return;
-  var r=sec.getBoundingClientRect(),total=sec.offsetHeight-pin.offsetHeight;
-  tgt=total>0?clamp(-r.top/total):0;
-  if(!ready){cur=tgt;ready=true}
+function onScroll(){}
+/* the animation plays by itself (once the section is half in view); the button pauses, resumes and replays it */
+function btn(){
+  if(!auto)return;
+  var t=playing?'pause':done?'replay':'play';
+  auto.textContent=t;auto.setAttribute('aria-label',t==='pause'?'Pause animation':t==='play'?'Play animation':'Replay animation');
 }
+function kick(){if(vis&&!raf&&!reduce){last=performance.now();raf=requestAnimationFrame(frame)}}
 function frame(now){
   raf=0;if(!vis)return;
   var dt=Math.min(.25,(now-last)/1000);last=now;
+  if(playing){tgt=Math.min(1,tgt+dt*1000/DUR);if(tgt>=1){playing=false;done=true;btn()}}
   cur+=(tgt-cur)*(1-Math.exp(-dt*7));if(Math.abs(tgt-cur)<.0003)cur=tgt;
   render(now,cur);syncUI(cur);
   raf=requestAnimationFrame(frame);
 }
 bar.forEach(function(b,i){b.addEventListener('click',function(){
-  var r=sec.getBoundingClientRect(),total=sec.offsetHeight-pin.offsetHeight;
-  window.scrollTo({top:r.top+window.pageYOffset+(STEPS[i]+.004)*total,behavior:reduce?'auto':'smooth'});
+  tgt=Math.min(.999,STEPS[i]+.004);done=false;playing=!reduce;started=true;btn();kick();
 })});
+if(auto)auto.addEventListener('click',function(){
+  if(done){tgt=0;done=false;playing=true}else playing=!playing;
+  started=true;btn();kick();
+});
 pin.addEventListener('pointermove',function(e){var r=cv.getBoundingClientRect();ptr.x=e.clientX-r.left;ptr.y=e.clientY-r.top});
 pin.addEventListener('pointerleave',function(){ptr.x=ptr.y=-9999});
-window.addEventListener('scroll',onScroll,{passive:true});
 var rz=0;window.addEventListener('resize',function(){cancelAnimationFrame(rz);rz=requestAnimationFrame(function(){resize();onScroll()})});
 new IntersectionObserver(function(es){
   vis=es[0].isIntersecting;
   if(vis&&!raf&&!reduce){last=performance.now();raf=requestAnimationFrame(frame)}
 },{rootMargin:'100px'}).observe(sec);
+new IntersectionObserver(function(es){
+  if(!started&&!reduce&&es[0].intersectionRatio>=.5){started=true;playing=true;btn();kick()}
+},{threshold:[0,.5,.6]}).observe(sec);
 
 window.__nxEco=function(){
   var D=T();if(!D)return;
@@ -850,7 +861,7 @@ window.__nxEco=function(){
   setStep(step<0?stepOf(cur):step,true);
   if(reduce||!raf)render(performance.now(),cur);
 };
-resize();onScroll();
+resize();onScroll();btn();
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){if(reduce||!raf)render(performance.now(),cur)});
 window.__nxEco();syncUI(cur);
 })();
