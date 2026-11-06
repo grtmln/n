@@ -19,11 +19,11 @@ html{background:#06060a;color-scheme:dark;overscroll-behavior:none;scroll-behavi
 body{overscroll-behavior:none;color:var(--fg);font-family:var(--f-body);line-height:1.5;overflow-x:hidden}
 .grain{position:fixed;inset:0;transform:translateZ(0);backface-visibility:hidden;pointer-events:none;z-index:-1;opacity:.95;mix-blend-mode:overlay;}
 .bg{position:fixed;inset:0;z-index:-2;overflow:hidden;background:#06060a;transform:translateZ(0);backface-visibility:hidden;will-change:transform}
-.blob{position:absolute;border-radius:50%;filter:blur(160px);opacity:.6;will-change:transform}
-.b1{width:120vmax;height:120vmax;background:radial-gradient(closest-side,var(--red),rgba(255,42,42,.35) 45%,transparent 100%);left:-50vmax;top:-45vmax}
-.b2{width:110vmax;height:110vmax;background:radial-gradient(closest-side,var(--blue),rgba(27,77,255,.35) 45%,transparent 100%);right:-50vmax;top:-5vmax}
-.b3{width:100vmax;height:100vmax;background:radial-gradient(closest-side,var(--org),rgba(255,138,31,.3) 45%,transparent 100%);left:-10vmax;bottom:-60vmax}
-.b4{width:90vmax;height:90vmax;background:radial-gradient(closest-side,var(--grn),rgba(56,214,122,.25) 45%,transparent 100%);right:-30vmax;bottom:-45vmax;opacity:.35}
+.blob{position:absolute;border-radius:50%;opacity:.5;will-change:transform}
+.b1{width:120vmax;height:120vmax;background:radial-gradient(closest-side,color-mix(in srgb,var(--red) 100.0%,transparent) 0%,color-mix(in srgb,var(--red) 97.5%,transparent) 8%,color-mix(in srgb,var(--red) 90.2%,transparent) 17%,color-mix(in srgb,var(--red) 79.3%,transparent) 25%,color-mix(in srgb,var(--red) 66.1%,transparent) 33%,color-mix(in srgb,var(--red) 52.2%,transparent) 42%,color-mix(in srgb,var(--red) 39.0%,transparent) 50%,color-mix(in srgb,var(--red) 27.4%,transparent) 58%,color-mix(in srgb,var(--red) 17.9%,transparent) 67%,color-mix(in srgb,var(--red) 10.8%,transparent) 75%,color-mix(in srgb,var(--red) 5.6%,transparent) 83%,color-mix(in srgb,var(--red) 2.2%,transparent) 92%,color-mix(in srgb,var(--red) 0.0%,transparent) 100%);left:-50vmax;top:-45vmax}
+.b2{width:110vmax;height:110vmax;background:radial-gradient(closest-side,color-mix(in srgb,var(--blue) 100.0%,transparent) 0%,color-mix(in srgb,var(--blue) 97.5%,transparent) 8%,color-mix(in srgb,var(--blue) 90.2%,transparent) 17%,color-mix(in srgb,var(--blue) 79.3%,transparent) 25%,color-mix(in srgb,var(--blue) 66.1%,transparent) 33%,color-mix(in srgb,var(--blue) 52.2%,transparent) 42%,color-mix(in srgb,var(--blue) 39.0%,transparent) 50%,color-mix(in srgb,var(--blue) 27.4%,transparent) 58%,color-mix(in srgb,var(--blue) 17.9%,transparent) 67%,color-mix(in srgb,var(--blue) 10.8%,transparent) 75%,color-mix(in srgb,var(--blue) 5.6%,transparent) 83%,color-mix(in srgb,var(--blue) 2.2%,transparent) 92%,color-mix(in srgb,var(--blue) 0.0%,transparent) 100%);right:-50vmax;top:-5vmax}
+.b3{width:100vmax;height:100vmax;background:radial-gradient(closest-side,color-mix(in srgb,var(--org) 100.0%,transparent) 0%,color-mix(in srgb,var(--org) 97.5%,transparent) 8%,color-mix(in srgb,var(--org) 90.2%,transparent) 17%,color-mix(in srgb,var(--org) 79.3%,transparent) 25%,color-mix(in srgb,var(--org) 66.1%,transparent) 33%,color-mix(in srgb,var(--org) 52.2%,transparent) 42%,color-mix(in srgb,var(--org) 39.0%,transparent) 50%,color-mix(in srgb,var(--org) 27.4%,transparent) 58%,color-mix(in srgb,var(--org) 17.9%,transparent) 67%,color-mix(in srgb,var(--org) 10.8%,transparent) 75%,color-mix(in srgb,var(--org) 5.6%,transparent) 83%,color-mix(in srgb,var(--org) 2.2%,transparent) 92%,color-mix(in srgb,var(--org) 0.0%,transparent) 100%);left:-10vmax;bottom:-60vmax}
+.b4{width:90vmax;height:90vmax;background:radial-gradient(closest-side,color-mix(in srgb,var(--grn) 100.0%,transparent) 0%,color-mix(in srgb,var(--grn) 97.5%,transparent) 8%,color-mix(in srgb,var(--grn) 90.2%,transparent) 17%,color-mix(in srgb,var(--grn) 79.3%,transparent) 25%,color-mix(in srgb,var(--grn) 66.1%,transparent) 33%,color-mix(in srgb,var(--grn) 52.2%,transparent) 42%,color-mix(in srgb,var(--grn) 39.0%,transparent) 50%,color-mix(in srgb,var(--grn) 27.4%,transparent) 58%,color-mix(in srgb,var(--grn) 17.9%,transparent) 67%,color-mix(in srgb,var(--grn) 10.8%,transparent) 75%,color-mix(in srgb,var(--grn) 5.6%,transparent) 83%,color-mix(in srgb,var(--grn) 2.2%,transparent) 92%,color-mix(in srgb,var(--grn) 0.0%,transparent) 100%);right:-30vmax;bottom:-45vmax;opacity:.35}
 nav{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;justify-content:space-between;align-items:center;padding:calc(18px + env(safe-area-inset-top,0px)) 5vw 18px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);background:#06060a44}
 nav a{color:var(--fg);text-decoration:none;font-size:14px;margin-left:24px;opacity:.8}
 nav a:hover{opacity:1}
@@ -64,6 +64,44 @@ h2{font-size:clamp(28px,4.2vw,56px);letter-spacing:-.03em;line-height:1.08;font-
 .c3::before{background:radial-gradient(circle at 50% 40%,var(--grn),transparent 50%),radial-gradient(circle at 90% 90%,var(--blue),transparent 60%)}
 .c4::before{background:radial-gradient(circle at 20% 20%,var(--blue),transparent 55%),radial-gradient(circle at 80% 80%,var(--org),transparent 60%)}
 .contact{text-align:center;padding-bottom:18vh}
+.cf{max-width:640px;margin:clamp(48px,9vh,96px) auto 0;text-align:left;display:flex;flex-direction:column;gap:22px}
+.cf-row{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.cf label{display:flex;flex-direction:column;gap:8px}
+.cf label>span{font-family:var(--f-mono);font-size:12px;color:var(--mute);text-transform:lowercase}
+.cf input[type=text],.cf input[type=email],.cf textarea{width:100%;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:#ffffff0d;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);color:var(--fg);font:inherit;font-size:16px;outline:0;resize:vertical;transition:border-color .3s,background .3s}
+.cf textarea{min-height:130px}
+.cf input:focus,.cf textarea:focus{border-color:#ffffff88;background:#ffffff16}
+.cf input[aria-invalid=true],.cf textarea[aria-invalid=true]{border-color:#ff6b5b}
+.cf-file{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.cf-file input[type=file]{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.cf-file .cf-pick{display:inline-flex;flex-direction:row;padding:11px 20px;border:1px dashed #ffffff55;border-radius:99px;font-family:var(--f-mono);font-size:13px;color:var(--fg);text-transform:lowercase;cursor:pointer;transition:background .3s}
+.cf-file .cf-pick:hover{background:#ffffff14}
+.cf-file .cf-pick span{font-size:13px;color:var(--fg)}
+.cf-max{font-family:var(--f-mono);font-size:12px;color:var(--mute);overflow-wrap:anywhere}
+.cf-max.err{color:#ff8d80}
+.cf-foot{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.cf-send{padding:14px 36px;border:1px solid var(--fg);border-radius:99px;background:var(--fg);color:#06060a;font-family:var(--f-display);font-weight:700;font-size:16px;letter-spacing:-.01em;cursor:pointer;transition:opacity .3s,transform .3s}
+.cf-send:hover{opacity:.86}.cf-send[disabled]{opacity:.45;cursor:default}
+.cf-status{margin:0;font-size:15px;color:var(--mute)}.cf-status.ok{color:#8fe8b0}.cf-status.err{color:#ff8d80}
+@media (max-width:560px){.cf-row{grid-template-columns:1fr}}
+.cf-tg{margin-top:34px}
+.cf-consent{display:flex;flex-direction:column;gap:10px}
+.cf label.cf-check{flex-direction:row;align-items:flex-start;gap:12px;cursor:pointer}
+.cf-check input{position:absolute;opacity:0;width:1px;height:1px}
+.cf-check i{flex:none;width:20px;height:20px;margin-top:2px;border:1px solid #ffffff77;border-radius:6px;background:#ffffff0d;position:relative;transition:background .3s,border-color .3s}
+.cf-check i::after{content:"";position:absolute;left:6px;top:2px;width:5px;height:10px;border:solid #06060a;border-width:0 2px 2px 0;transform:rotate(45deg) scale(0);transition:transform .25s}
+.cf-check input:checked+i{background:var(--fg);border-color:var(--fg)}
+.cf-check input:checked+i::after{transform:rotate(45deg) scale(1)}
+.cf-check input:focus-visible+i{outline:2px solid #fff;outline-offset:2px}
+.cf-check input[aria-invalid=true]+i{border-color:#ff6b5b}
+.cf .cf-check>span{font-family:var(--f-body,inherit);font-size:14px;line-height:1.45;color:#d0cfd3;text-transform:none}
+.cf-gdpr{margin-left:32px}
+.cf-gdpr summary{cursor:pointer;font-family:var(--f-mono);font-size:12px;color:var(--mute);text-transform:lowercase;list-style:none;width:max-content;border-bottom:1px solid #ffffff33}
+.cf-gdpr summary::-webkit-details-marker{display:none}
+.cf-gdpr[open] summary{color:var(--fg)}
+.cf-gdpr-t{margin-top:14px;padding:18px 20px;border:1px solid var(--line);border-radius:14px;background:#0000002e;max-height:260px;overflow:auto;font-size:13.5px;line-height:1.5;color:#cfced3}
+.cf-gdpr-t p{margin:0 0 10px;max-width:none;font-size:inherit;color:inherit}.cf-gdpr-t p:last-child{margin:0}
+.cf-gdpr-t a{color:var(--fg)}
 .contact h2{margin:auto}
 .contact a.mail{display:block;margin-top:34px;font-size:clamp(22px,4vw,48px);color:var(--fg);text-decoration:none;font-weight:800;letter-spacing:-.03em}
 footer{padding:30px 5vw;color:var(--mute);font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;border-top:1px solid var(--line)}
@@ -433,6 +471,30 @@ radial-gradient(40% 58% at 16% 80%,color-mix(in srgb,var(--c1) 70%,transparent) 
 <div class="legos" aria-hidden="true"><canvas id="legoc"></canvas></div>
 <p class="lego-note">Build something out of LEGO.<br>Send your creation. Include a brief for us.</p>
 <a class="mail" href="mailto:hello@nuxnce.com">hello@nuxnce.com</a>
+<button type="button" class="work-tg cf-tg rv" id="cftg" aria-expanded="false" aria-controls="cfbody"><span class="work-tg-t">write to us</span><i aria-hidden="true"></i></button>
+<div class="work-body" id="cfbody"><div class="work-in">
+<form class="cf" id="cf" action="https://formsubmit.co/milanferencik91@gmail.com" method="POST" enctype="multipart/form-data" novalidate>
+<div class="cf-row"><label><span>name</span><input type="text" name="name" autocomplete="name" required></label><label><span>email</span><input type="email" name="email" autocomplete="email" required></label></div>
+<label><span>message</span><textarea name="message" rows="5" required></textarea></label>
+<div class="cf-file"><input type="file" name="attachment" id="cf-att"><label for="cf-att" class="cf-pick"><span class="cf-pt">attach a file</span></label><span class="cf-max" id="cf-name">max. file size 5 MB</span></div>
+<div class="cf-consent"><label class="cf-check"><input type="checkbox" name="consent" value="agreed" required><i aria-hidden="true"></i><span>I agree to the processing of my personal data as set out in the consent below.</span></label>
+<details class="cf-gdpr"><summary>full text of consent</summary>
+<div class="cf-gdpr-t">
+<p><b>Consent to the processing of personal data</b></p>
+<p>By ticking the box and sending this form, I give my free, specific, informed and unambiguous consent under Article 6(1)(a) of Regulation (EU) 2016/679 (GDPR) to the processing of the personal data I enter in this form — my name, email address, the content of my message and any file I attach — by <b>nuxnce — difference lab</b>, Bratislava, Slovakia (the “controller”), contact: <a href="mailto:hello@nuxnce.com">hello@nuxnce.com</a>.</p>
+<p><b>Purpose.</b> My data will be used only to respond to my enquiry and to communicate with me about it, including a possible follow-up collaboration.</p>
+<p><b>Recipients.</b> The form is transmitted through the service FormSubmit (formsubmit.co) and delivered to the controller’s email inbox. These providers act as processors and may process data outside the European Economic Area under appropriate safeguards. My data will not be sold or used for advertising.</p>
+<p><b>Retention.</b> My data will be kept for as long as needed to handle my enquiry, and no longer than 12 months after the last communication, unless a longer period is required by law or we agree on a collaboration.</p>
+<p><b>My rights.</b> I have the right to access my data, to have it corrected or erased, to restrict or object to its processing, to data portability, and to withdraw this consent at any time by writing to hello@nuxnce.com, without affecting the lawfulness of processing before the withdrawal. I may also lodge a complaint with the Office for Personal Data Protection of the Slovak Republic (dataprotection.gov.sk).</p>
+<p>Providing the data is voluntary, but without it the enquiry cannot be handled.</p>
+</div></details></div>
+<input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none">
+<input type="hidden" name="_subject" value="nuxnce — new message from the website">
+<input type="hidden" name="_template" value="table">
+<input type="hidden" name="_captcha" value="false">
+<div class="cf-foot"><button type="submit" class="cf-send"><span>send</span></button><p class="cf-status" id="cf-status" role="status" aria-live="polite"></p></div>
+</form>
+</div></div>
 </section>
 <footer><span>© nuxnce — difference lab</span><span>heartquartered in Bratislava, ideating globally</span></footer>
 
@@ -1596,6 +1658,32 @@ if(mq.addEventListener)mq.addEventListener('change',wide);else mq.addListener(wi
 function set(o){c.classList.toggle('open',o);b.setAttribute('aria-expanded',o);t.textContent=o?'hide':'take a peek'}
 b.addEventListener('click',function(){set(!c.classList.contains('open'))});
 addEventListener('hashchange',function(){if(location.hash==='#work')set(true)});})();
+</script>
+<script>
+(function(){var f=document.getElementById('cf');if(!f)return;
+var MAX=5*1024*1024,att=document.getElementById('cf-att'),nm=document.getElementById('cf-name'),st=document.getElementById('cf-status'),btn=f.querySelector('.cf-send'),def=nm.textContent;
+function size(b){return b<1048576?Math.max(1,Math.round(b/1024))+' KB':(b/1048576).toFixed(1)+' MB'}
+att.addEventListener('change',function(){var x=att.files[0];nm.classList.remove('err');if(!x){nm.textContent=def;return}
+ if(x.size>MAX){nm.textContent=x.name+' ('+size(x.size)+') is over the 5 MB limit';nm.classList.add('err');att.value='';return}
+ nm.textContent=x.name+' · '+size(x.size)+' · max. file size 5 MB'});
+function say(t,c){st.textContent=t;st.className='cf-status'+(c?' '+c:'')}
+f.addEventListener('submit',function(e){e.preventDefault();
+ var bad=false;['name','email','message'].forEach(function(n){var el=f.elements[n],v=el.value.trim(),ok=v&&(n!=='email'||/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v));el.setAttribute('aria-invalid',ok?'false':'true');if(!ok)bad=true});
+ var cs=f.elements.consent;cs.setAttribute('aria-invalid',cs.checked?'false':'true');
+ if(bad){say('Please fill in your name, a valid email and a message.','err');return}
+ if(!cs.checked){say('Please agree to the processing of personal data.','err');return}
+ if(att.files[0]&&att.files[0].size>MAX){say('The attachment is over the 5 MB limit.','err');return}
+ btn.disabled=true;say('Sending…');
+ fetch('https://formsubmit.co/ajax/milanferencik91@gmail.com',{method:'POST',body:new FormData(f),headers:{'Accept':'application/json'}})
+ .then(function(r){return r.json().catch(function(){return{}}).then(function(j){if(r.ok&&j.success!=='false'&&j.success!==false){f.reset();nm.textContent=def;say('Thank you. Your message is on its way.','ok')}else throw new Error(j.message||'fail')})})
+ .catch(function(){say('Something went wrong. Please try again or write to hello@nuxnce.com.','err')})
+ .then(function(){btn.disabled=false})});
+})();
+</script>
+<script>
+(function(){var b=document.getElementById('cftg'),c=document.getElementById('cfbody');if(!b||!c)return;var t=b.querySelector('.work-tg-t');
+b.addEventListener('click',function(){var o=!c.classList.contains('open');c.classList.toggle('open',o);b.setAttribute('aria-expanded',o);t.textContent=o?'hide':'write to us';
+ if(o)setTimeout(function(){var r=c.getBoundingClientRect();if(r.bottom>innerHeight)scrollBy({top:Math.min(r.bottom-innerHeight+40,r.top-90),behavior:'smooth'})},450)});})();
 </script>
 <script>
 /* sound:start */
