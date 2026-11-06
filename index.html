@@ -326,7 +326,7 @@ html.menu-open{overflow:hidden;scrollbar-gutter:stable}
 .work-tg[aria-expanded=true] i::after{transform:rotate(0)}
 .work-body{display:grid;grid-template-rows:0fr;visibility:hidden;transition:grid-template-rows .9s cubic-bezier(.2,.7,.2,1),visibility 0s .9s}
 .work-body.open{grid-template-rows:1fr;visibility:visible;transition:grid-template-rows .9s cubic-bezier(.2,.7,.2,1),visibility 0s}
-.work-in{overflow:hidden;min-height:0;opacity:0;transition:opacity .7s ease}
+.work-in{position:relative;overflow:hidden;min-height:0;opacity:0;transition:opacity .7s ease}
 .work-body.open .work-in{opacity:1;transition-delay:.15s}
 @media (prefers-reduced-motion:reduce){.work-body,.work-in{transition:none}}
 .work-note{margin-top:22px;max-width:30em;font-size:clamp(17px,1.6vw,20px);line-height:1.4;color:#d0cfd3}
