@@ -20,7 +20,8 @@ html{background:#06060a;color-scheme:dark;overscroll-behavior:none;scroll-behavi
 body{overscroll-behavior:none;color:var(--fg);font-family:var(--f-body);line-height:1.5;overflow-x:hidden}
 .grain{position:fixed;inset:0;transform:translateZ(0);backface-visibility:hidden;pointer-events:none;z-index:-1;opacity:.95;mix-blend-mode:overlay;}
 .bg{position:fixed;inset:0;z-index:-2;overflow:hidden;background:#06060a;transform:translateZ(0);backface-visibility:hidden;will-change:transform}
-#bgc{position:absolute;inset:0;width:100%;height:100%;display:block}
+#bgc{position:absolute;left:0;top:0;width:100%;height:100vh;height:100lvh;display:block;opacity:0;transition:opacity 1.4s ease}
+.bg.gl.on #bgc{opacity:1}
 .bg.gl .blob{display:none}
 .blob{position:absolute;border-radius:50%;opacity:.5;will-change:transform}
 .b1{width:120vmax;height:120vmax;background:radial-gradient(closest-side,color-mix(in srgb,var(--red) 100.0%,transparent) 0%,color-mix(in srgb,var(--red) 97.5%,transparent) 8%,color-mix(in srgb,var(--red) 90.2%,transparent) 17%,color-mix(in srgb,var(--red) 79.3%,transparent) 25%,color-mix(in srgb,var(--red) 66.1%,transparent) 33%,color-mix(in srgb,var(--red) 52.2%,transparent) 42%,color-mix(in srgb,var(--red) 39.0%,transparent) 50%,color-mix(in srgb,var(--red) 27.4%,transparent) 58%,color-mix(in srgb,var(--red) 17.9%,transparent) 67%,color-mix(in srgb,var(--red) 10.8%,transparent) 75%,color-mix(in srgb,var(--red) 5.6%,transparent) 83%,color-mix(in srgb,var(--red) 2.2%,transparent) 92%,color-mix(in srgb,var(--red) 0.0%,transparent) 100%);left:-50vmax;top:-45vmax}
@@ -1712,14 +1713,15 @@ gl.useProgram(pr);var b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bu
 var la=gl.getAttribLocation(pr,'a');gl.enableVertexAttribArray(la);gl.vertexAttribPointer(la,2,gl.FLOAT,false,0,0);
 var uR=gl.getUniformLocation(pr,'R'),uT=gl.getUniformLocation(pr,'T'),uM=gl.getUniformLocation(pr,'M'),uS=gl.getUniformLocation(pr,'Sc');
 var S=.5,w=0,hh=0;
-function size(){w=Math.max(2,Math.round(innerWidth*S));hh=Math.max(2,Math.round(innerHeight*S));cv.width=w;cv.height=hh;gl.viewport(0,0,w,hh)}
-size();addEventListener('resize',size);
+var cw=0,ch=0;
+function size(){var W=cv.clientWidth||innerWidth,H=cv.clientHeight||innerHeight;if(Math.abs(W-cw)<2&&Math.abs(H-ch)<2)return;cw=W;ch=H;w=Math.max(2,Math.round(W*S));hh=Math.max(2,Math.round(H*S));cv.width=w;cv.height=hh;gl.viewport(0,0,w,hh);if(started)draw()}
+var started=false;size();addEventListener('resize',size);
 var mx=0,my=0,tx=0,ty=0,sc=0;addEventListener('pointermove',function(e){tx=e.clientX/innerWidth-.5;ty=.5-e.clientY/innerHeight});
 var rm=matchMedia('(prefers-reduced-motion:reduce)').matches,run=true,t0=performance.now();
-function draw(){var n=(performance.now()-t0)/1000;mx+=(tx-mx)*.05;my+=(ty-my)*.05;sc+=(scrollY/innerHeight-sc)*.08;
+function draw(){var n=(performance.now()-t0)/1000;mx+=(tx-mx)*.05;my+=(ty-my)*.05;var st=scrollY/(ch||innerHeight);if(!started){sc=st}else sc+=(st-sc)*.08;
  gl.uniform2f(uR,w,hh);gl.uniform1f(uT,rm?3.:n);gl.uniform2f(uM,mx,my);gl.uniform1f(uS,sc);gl.drawArrays(gl.TRIANGLE_STRIP,0,4)}
 function loop(){if(!run)return;draw();requestAnimationFrame(loop)}
-bg.classList.add('gl');loop();
+bg.classList.add('gl');draw();started=true;requestAnimationFrame(function(){bg.classList.add('on')});loop();
 document.addEventListener('visibilitychange',function(){run=!document.hidden;if(run)loop()});
 cv.addEventListener('webglcontextlost',function(e){e.preventDefault();run=false;bg.classList.remove('gl')});
 })();
