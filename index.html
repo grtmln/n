@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="theme-color" content="#06060a">
 <meta name="color-scheme" content="dark">
+<meta name="format-detection" content="telephone=no,email=no">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>nuxnce — mean something</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,6 +20,8 @@ html{background:#06060a;color-scheme:dark;overscroll-behavior:none;scroll-behavi
 body{overscroll-behavior:none;color:var(--fg);font-family:var(--f-body);line-height:1.5;overflow-x:hidden}
 .grain{position:fixed;inset:0;transform:translateZ(0);backface-visibility:hidden;pointer-events:none;z-index:-1;opacity:.95;mix-blend-mode:overlay;}
 .bg{position:fixed;inset:0;z-index:-2;overflow:hidden;background:#06060a;transform:translateZ(0);backface-visibility:hidden;will-change:transform}
+#bgc{position:absolute;inset:0;width:100%;height:100%;display:block}
+.bg.gl .blob{display:none}
 .blob{position:absolute;border-radius:50%;opacity:.5;will-change:transform}
 .b1{width:120vmax;height:120vmax;background:radial-gradient(closest-side,color-mix(in srgb,var(--red) 100.0%,transparent) 0%,color-mix(in srgb,var(--red) 97.5%,transparent) 8%,color-mix(in srgb,var(--red) 90.2%,transparent) 17%,color-mix(in srgb,var(--red) 79.3%,transparent) 25%,color-mix(in srgb,var(--red) 66.1%,transparent) 33%,color-mix(in srgb,var(--red) 52.2%,transparent) 42%,color-mix(in srgb,var(--red) 39.0%,transparent) 50%,color-mix(in srgb,var(--red) 27.4%,transparent) 58%,color-mix(in srgb,var(--red) 17.9%,transparent) 67%,color-mix(in srgb,var(--red) 10.8%,transparent) 75%,color-mix(in srgb,var(--red) 5.6%,transparent) 83%,color-mix(in srgb,var(--red) 2.2%,transparent) 92%,color-mix(in srgb,var(--red) 0.0%,transparent) 100%);left:-50vmax;top:-45vmax}
 .b2{width:110vmax;height:110vmax;background:radial-gradient(closest-side,color-mix(in srgb,var(--blue) 100.0%,transparent) 0%,color-mix(in srgb,var(--blue) 97.5%,transparent) 8%,color-mix(in srgb,var(--blue) 90.2%,transparent) 17%,color-mix(in srgb,var(--blue) 79.3%,transparent) 25%,color-mix(in srgb,var(--blue) 66.1%,transparent) 33%,color-mix(in srgb,var(--blue) 52.2%,transparent) 42%,color-mix(in srgb,var(--blue) 39.0%,transparent) 50%,color-mix(in srgb,var(--blue) 27.4%,transparent) 58%,color-mix(in srgb,var(--blue) 17.9%,transparent) 67%,color-mix(in srgb,var(--blue) 10.8%,transparent) 75%,color-mix(in srgb,var(--blue) 5.6%,transparent) 83%,color-mix(in srgb,var(--blue) 2.2%,transparent) 92%,color-mix(in srgb,var(--blue) 0.0%,transparent) 100%);right:-50vmax;top:-5vmax}
@@ -68,10 +71,11 @@ h2{font-size:clamp(28px,4.2vw,56px);letter-spacing:-.03em;line-height:1.08;font-
 .cf-row{display:grid;grid-template-columns:1fr 1fr;gap:22px}
 .cf label{display:flex;flex-direction:column;gap:8px}
 .cf label>span{font-family:var(--f-mono);font-size:12px;color:var(--mute);text-transform:lowercase}
-.cf input[type=text],.cf input[type=email],.cf textarea{width:100%;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:#ffffff0d;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);color:var(--fg);font:inherit;font-size:16px;outline:0;resize:vertical;transition:border-color .3s,background .3s}
+.cf input[type=text],.cf input[type=email],.cf textarea{width:100%;padding:16px 18px;border:0;border-radius:16px;background:#ffffff14;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);color:var(--fg);font:inherit;font-size:16px;outline:0;resize:vertical;transition:border-color .3s,background .3s}
 .cf textarea{min-height:130px}
-.cf input:focus,.cf textarea:focus{border-color:#ffffff88;background:#ffffff16}
-.cf input[aria-invalid=true],.cf textarea[aria-invalid=true]{border-color:#ff6b5b}
+.cf input:focus,.cf textarea:focus{background:#ffffff22}
+.cf ::placeholder{color:#ffffff73;opacity:1}
+.cf input[aria-invalid=true],.cf textarea[aria-invalid=true]{box-shadow:inset 0 0 0 1px #ff6b5b88}
 .cf-file{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
 .cf-file input[type=file]{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
 .cf-file .cf-pick{display:inline-flex;flex-direction:row;padding:11px 20px;border:1px dashed #ffffff55;border-radius:99px;font-family:var(--f-mono);font-size:13px;color:var(--fg);text-transform:lowercase;cursor:pointer;transition:background .3s}
@@ -95,13 +99,11 @@ h2{font-size:clamp(28px,4.2vw,56px);letter-spacing:-.03em;line-height:1.08;font-
 .cf-check input:focus-visible+i{outline:2px solid #fff;outline-offset:2px}
 .cf-check input[aria-invalid=true]+i{border-color:#ff6b5b}
 .cf .cf-check>span{font-family:var(--f-body,inherit);font-size:14px;line-height:1.45;color:#d0cfd3;text-transform:none}
-.cf-gdpr{margin-left:32px}
-.cf-gdpr summary{cursor:pointer;font-family:var(--f-mono);font-size:12px;color:var(--mute);text-transform:lowercase;list-style:none;width:max-content;border-bottom:1px solid #ffffff33}
-.cf-gdpr summary::-webkit-details-marker{display:none}
-.cf-gdpr[open] summary{color:var(--fg)}
-.cf-gdpr-t{margin-top:14px;padding:18px 20px;border:1px solid var(--line);border-radius:14px;background:#0000002e;max-height:260px;overflow:auto;font-size:13.5px;line-height:1.5;color:#cfced3}
+.cf-gb{margin-left:32px}
+.cf-link{padding:0;border:0;background:none;color:var(--fg);font:inherit;cursor:pointer;border-bottom:1px solid #ffffff77;line-height:1.2}
+.cf-link:hover{border-bottom-color:var(--fg)}
+.cf-gdpr-t{margin-top:4px;padding:18px 20px;border-radius:16px;background:#00000033;max-height:260px;overflow:auto;font-size:13.5px;line-height:1.5;color:#cfced3}
 .cf-gdpr-t p{margin:0 0 10px;max-width:none;font-size:inherit;color:inherit}.cf-gdpr-t p:last-child{margin:0}
-.cf-gdpr-t a{color:var(--fg)}
 .contact h2{margin:auto}
 .contact a.mail{display:block;margin-top:34px;font-size:clamp(22px,4vw,48px);color:var(--fg);text-decoration:none;font-weight:800;letter-spacing:-.03em}
 footer{padding:30px 5vw;color:var(--mute);font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;border-top:1px solid var(--line)}
@@ -355,7 +357,7 @@ radial-gradient(40% 58% at 16% 80%,color-mix(in srgb,var(--c1) 70%,transparent) 
 </style>
 </head>
 <body>
-<div class="bg"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="blob b4"></div></div>
+<div class="bg"><canvas id="bgc" aria-hidden="true"></canvas><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="blob b4"></div></div>
 <svg class="grain" width="100%" height="100%" aria-hidden="true"><filter id="gn" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="1.4" numOctaves="4" seed="7"/><feColorMatrix type="saturate" values=".4"/><feComponentTransfer><feFuncR type="linear" slope="2" intercept="-.5"/><feFuncG type="linear" slope="2" intercept="-.5"/><feFuncB type="linear" slope="2" intercept="-.5"/><feFuncA type="linear" slope="0" intercept="1"/></feComponentTransfer></filter><rect width="100%" height="100%" filter="url(#gn)"/></svg>
 <div id="cur"><img alt="" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjEwNzYgMzUgNjkyIDQyNiIgd2lkdGg9IjY5MiIgaGVpZ2h0PSI0MjYiPjxnIGZpbGw9IiNmZmYiIGZpbGwtcnVsZT0iZXZlbm9kZCI+PHBhdGggZD0iTTExNzggNTUgTDEzMTIgMjQ4IEwxMDk2IDQ0MCBMMTI5MyA0NDAgTDE0MDQgMzI5IEwxNDY4IDQ0MCBMMTY2NiA0NDAgTDE1MzEgMjQ3IEwxNDQzIDI0NyBMMTQ0MCAyNDUgTDE1NzMgMTI0IEwxNjcxIDEyMyBMMTc0NyA1NiBMMTU1MCA1NSBMMTQzOCAxNjYgTDEzNzQgNTVaIi8+PC9nPjwvc3ZnPg=="></div>
 <nav>
@@ -474,20 +476,19 @@ radial-gradient(40% 58% at 16% 80%,color-mix(in srgb,var(--c1) 70%,transparent) 
 <button type="button" class="work-tg cf-tg rv" id="cftg" aria-expanded="false" aria-controls="cfbody"><span class="work-tg-t">write to us</span><i aria-hidden="true"></i></button>
 <div class="work-body" id="cfbody"><div class="work-in">
 <form class="cf" id="cf" action="https://formsubmit.co/milanferencik91@gmail.com" method="POST" enctype="multipart/form-data" novalidate>
-<div class="cf-row"><label><span>name</span><input type="text" name="name" autocomplete="name" required></label><label><span>email</span><input type="email" name="email" autocomplete="email" required></label></div>
-<label><span>message</span><textarea name="message" rows="5" required></textarea></label>
+<div class="cf-row"><label><span>name</span><input type="text" name="name" autocomplete="name" placeholder="your name, company or organisation" required></label><label><span>email</span><input type="email" name="email" autocomplete="email" placeholder="your email" required></label></div>
+<label><span>message</span><textarea name="message" rows="5" placeholder="your message" required></textarea></label>
 <div class="cf-file"><input type="file" name="attachment" id="cf-att"><label for="cf-att" class="cf-pick"><span class="cf-pt">attach a file</span></label><span class="cf-max" id="cf-name">max. file size 5 MB</span></div>
-<div class="cf-consent"><label class="cf-check"><input type="checkbox" name="consent" value="agreed" required><i aria-hidden="true"></i><span>I agree to the processing of my personal data as set out in the consent below.</span></label>
-<details class="cf-gdpr"><summary>full text of consent</summary>
-<div class="cf-gdpr-t">
+<div class="cf-consent"><label class="cf-check"><input type="checkbox" name="consent" value="agreed" required><i aria-hidden="true"></i><span>I agree to the processing of my personal data as set out in the <button type="button" class="cf-link" id="cf-cl" aria-expanded="false" aria-controls="cf-gb">consent</button>.</span></label>
+<div class="work-body cf-gb" id="cf-gb"><div class="work-in"><div class="cf-gdpr-t">
 <p><b>Consent to the processing of personal data</b></p>
-<p>By ticking the box and sending this form, I give my free, specific, informed and unambiguous consent under Article 6(1)(a) of Regulation (EU) 2016/679 (GDPR) to the processing of the personal data I enter in this form — my name, email address, the content of my message and any file I attach — by <b>nuxnce — difference lab</b>, Bratislava, Slovakia (the “controller”), contact: <a href="mailto:hello@nuxnce.com">hello@nuxnce.com</a>.</p>
+<p>By ticking the box and sending this form, I give my free, specific, informed and unambiguous consent under Article 6(1)(a) of Regulation (EU) 2016/679 (GDPR) to the processing of the personal data I enter in this form — my name, email address, the content of my message and any file I attach — by <b>nuxnce — difference lab</b>, Bratislava, Slovakia (the “controller”), contact: hello@nuxnce.com.</p>
 <p><b>Purpose.</b> My data will be used only to respond to my enquiry and to communicate with me about it, including a possible follow-up collaboration.</p>
 <p><b>Recipients.</b> The form is transmitted through the service FormSubmit (formsubmit.co) and delivered to the controller’s email inbox. These providers act as processors and may process data outside the European Economic Area under appropriate safeguards. My data will not be sold or used for advertising.</p>
 <p><b>Retention.</b> My data will be kept for as long as needed to handle my enquiry, and no longer than 12 months after the last communication, unless a longer period is required by law or we agree on a collaboration.</p>
 <p><b>My rights.</b> I have the right to access my data, to have it corrected or erased, to restrict or object to its processing, to data portability, and to withdraw this consent at any time by writing to hello@nuxnce.com, without affecting the lawfulness of processing before the withdrawal. I may also lodge a complaint with the Office for Personal Data Protection of the Slovak Republic (dataprotection.gov.sk).</p>
 <p>Providing the data is voluntary, but without it the enquiry cannot be handled.</p>
-</div></details></div>
+</div></div></div></div>
 <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none">
 <input type="hidden" name="_subject" value="nuxnce — new message from the website">
 <input type="hidden" name="_template" value="table">
@@ -1684,6 +1685,49 @@ f.addEventListener('submit',function(e){e.preventDefault();
 (function(){var b=document.getElementById('cftg'),c=document.getElementById('cfbody');if(!b||!c)return;var t=b.querySelector('.work-tg-t');
 b.addEventListener('click',function(){var o=!c.classList.contains('open');c.classList.toggle('open',o);b.setAttribute('aria-expanded',o);t.textContent=o?'hide':'write to us';
  if(o)setTimeout(function(){var r=c.getBoundingClientRect();if(r.bottom>innerHeight)scrollBy({top:Math.min(r.bottom-innerHeight+40,r.top-90),behavior:'smooth'})},450)});})();
+</script>
+<script>
+/* bg:start — one continuous colour field instead of separate blobs: no edges, no layers, dithered */
+(function(){
+var bg=document.querySelector('.bg'),cv=document.getElementById('bgc');if(!bg||!cv)return;
+var gl=cv.getContext('webgl',{antialias:false,alpha:false,powerPreference:'low-power'});if(!gl)return;
+function sh(t,s){var o=gl.createShader(t);gl.shaderSource(o,s);gl.compileShader(o);return gl.getShaderParameter(o,gl.COMPILE_STATUS)?o:null}
+var vs=sh(gl.VERTEX_SHADER,'attribute vec2 a;void main(){gl_Position=vec4(a,0.,1.);}');
+var fs=sh(gl.FRAGMENT_SHADER,'precision highp float;uniform vec2 R;uniform float T;uniform vec2 M;uniform float Sc;'+
+'vec3 C1=vec3(1.,.165,.165),C2=vec3(.106,.302,1.),C3=vec3(1.,.54,.12),C4=vec3(.22,.84,.48),B=vec3(.024,.024,.04);'+
+'float g(vec2 q,vec2 c,float s){vec2 d=q-c;return exp(-dot(d,d)/(2.*s*s));}'+
+'float h(vec2 p){return fract(sin(dot(p,vec2(12.9898,78.233)))*43758.5453);}'+
+'void main(){vec2 q=(gl_FragCoord.xy-.5*R)/max(R.x,R.y);float t=T*.16;'+
+'vec2 a1=vec2(-.46,.34)+vec2(sin(t*1.3),cos(t*.9))*.2+M*.12+vec2(sin(Sc*.9)*.38,-Sc*.07);'+
+'vec2 a2=vec2(.50,.26)+vec2(cos(t*1.1+1.),sin(t*1.4))*.2-M*.16+vec2(-sin(Sc*.7+1.)*.42,Sc*.06);'+
+'vec2 a3=vec2(-.06,-.50)+vec2(sin(t*.8+2.),cos(t*1.2+1.))*.22+M*.08+vec2(cos(Sc*.8+2.)*.5,Sc*.09);'+
+'vec2 a4=vec2(.46,-.42)+vec2(cos(t+3.),sin(t*.7))*.18-M*.1+vec2(-cos(Sc*1.1)*.45,Sc*.1);'+
+'float w1=g(q,a1,.36)*1.,w2=g(q,a2,.38)*1.,w3=g(q,a3,.36)*.95,w4=g(q,a4,.34)*.38;'+
+'float S=w1+w2+w3+w4;vec3 c=(C1*w1+C2*w2+C3*w3+C4*w4)/max(S,1e-4);'+
+'float al=pow(1.-exp(-S*1.25),1.9)*.72;vec3 o=mix(B,c,al);'+
+'o+=(h(gl_FragCoord.xy+T)-.5)*(2./255.);gl_FragColor=vec4(o,1.);}');
+if(!vs||!fs)return;
+var pr=gl.createProgram();gl.attachShader(pr,vs);gl.attachShader(pr,fs);gl.linkProgram(pr);if(!gl.getProgramParameter(pr,gl.LINK_STATUS))return;
+gl.useProgram(pr);var b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW);
+var la=gl.getAttribLocation(pr,'a');gl.enableVertexAttribArray(la);gl.vertexAttribPointer(la,2,gl.FLOAT,false,0,0);
+var uR=gl.getUniformLocation(pr,'R'),uT=gl.getUniformLocation(pr,'T'),uM=gl.getUniformLocation(pr,'M'),uS=gl.getUniformLocation(pr,'Sc');
+var S=.5,w=0,hh=0;
+function size(){w=Math.max(2,Math.round(innerWidth*S));hh=Math.max(2,Math.round(innerHeight*S));cv.width=w;cv.height=hh;gl.viewport(0,0,w,hh)}
+size();addEventListener('resize',size);
+var mx=0,my=0,tx=0,ty=0,sc=0;addEventListener('pointermove',function(e){tx=e.clientX/innerWidth-.5;ty=.5-e.clientY/innerHeight});
+var rm=matchMedia('(prefers-reduced-motion:reduce)').matches,run=true,t0=performance.now();
+function draw(){var n=(performance.now()-t0)/1000;mx+=(tx-mx)*.05;my+=(ty-my)*.05;sc+=(scrollY/innerHeight-sc)*.08;
+ gl.uniform2f(uR,w,hh);gl.uniform1f(uT,rm?3.:n);gl.uniform2f(uM,mx,my);gl.uniform1f(uS,sc);gl.drawArrays(gl.TRIANGLE_STRIP,0,4)}
+function loop(){if(!run)return;draw();requestAnimationFrame(loop)}
+bg.classList.add('gl');loop();
+document.addEventListener('visibilitychange',function(){run=!document.hidden;if(run)loop()});
+cv.addEventListener('webglcontextlost',function(e){e.preventDefault();run=false;bg.classList.remove('gl')});
+})();
+/* bg:end */
+</script>
+<script>
+(function(){var l=document.getElementById('cf-cl'),g=document.getElementById('cf-gb');if(!l||!g)return;
+l.addEventListener('click',function(e){e.preventDefault();var o=!g.classList.contains('open');g.classList.toggle('open',o);l.setAttribute('aria-expanded',o)})})();
 </script>
 <script>
 /* sound:start */
