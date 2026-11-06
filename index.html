@@ -29,7 +29,7 @@ nav a{color:var(--fg);text-decoration:none;font-size:14px;margin-left:24px;opaci
 nav a:hover{opacity:1}
 .logo{display:block;margin:0!important;opacity:1!important}
 .logo img{height:22px;width:auto;display:block;max-width:100%}
-nav{gap:16px}.logo{flex:0 1 auto;min-width:0}
+nav{gap:16px}.snd+.nav-links{margin-left:-16px}.logo{flex:0 1 auto;min-width:0}
 @media (max-width:420px){.logo img{height:clamp(15px,5vw,22px)}}
 section{padding:14vh 5vw;max-width:1280px;margin:auto}
 .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding-top:18vh}
@@ -300,13 +300,10 @@ radial-gradient(40% 58% at 16% 80%,color-mix(in srgb,var(--c1) 70%,transparent) 
 
 .snd{margin-left:auto;display:flex;align-items:center;gap:10px;padding:8px 14px 8px 12px;border:1px solid var(--line);border-radius:99px;color:var(--fg);background:#ffffff0f;-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);font-family:var(--f-mono);font-size:12px;text-transform:lowercase;letter-spacing:0;-webkit-tap-highlight-color:transparent;transition:background .3s}
 .snd:hover{background:#ffffff1c}
-.snd-eq{display:flex;align-items:center;gap:2px;height:12px}
-.snd-eq i{display:block;width:2px;height:3px;background:currentColor;border-radius:1px;transition:height .4s}
-.snd.on .snd-eq i{animation:sndEq 1.6s ease-in-out infinite}
-.snd.on .snd-eq i:nth-child(2){animation-delay:-.5s;animation-duration:2.1s}.snd.on .snd-eq i:nth-child(3){animation-delay:-1.1s;animation-duration:1.3s}.snd.on .snd-eq i:nth-child(4){animation-delay:-.8s;animation-duration:1.9s}
-@keyframes sndEq{0%,100%{height:3px}50%{height:12px}}
-@media (max-width:960px){.snd .snd-t{display:none}.snd{padding:10px 12px}.nav-toggle{margin-left:10px}}
-@media (prefers-reduced-motion:reduce){.snd.on .snd-eq i{animation:none;height:8px}}
+.snd-eq{display:flex;align-items:center;gap:2px;height:18px}
+.snd-eq i{display:block;width:2px;height:3px;background:currentColor;border-radius:1px}
+.snd.on .snd-eq i{will-change:height}
+@media (max-width:960px){.snd .snd-t{display:none}.snd{padding:10px 12px}.nav-toggle{margin-left:8px}}
 @keyframes slotA{from{transform:rotate(-14deg) scale(1) translate(-3%,2%)}to{transform:rotate(22deg) scale(1.16) translate(4%,-4%)}}
 @keyframes slotB{from{transform:rotate(18deg) scale(1.1) translate(3%,3%)}to{transform:rotate(-24deg) scale(.96) translate(-4%,-2%)}}
 .slot-tag{position:absolute;left:20px;right:20px;bottom:20px;display:flex;align-items:center;justify-content:space-between;font-family:var(--f-mono);font-size:12px;letter-spacing:.01em;color:var(--fg)}
@@ -344,7 +341,7 @@ radial-gradient(40% 58% at 16% 80%,color-mix(in srgb,var(--c1) 70%,transparent) 
 </section>
 
 <section class="intro" id="lab">
-<p class="lab-lead rv">We strip <span class="fw">brand</span> <span class="fw">communication</span> of meaningless superficiality. Reset predictability algorithms. Disrupt blending in. Put an end to begging for attention—enable to attract. To thrive.</p>
+<p class="lab-lead rv">We catalyse meaning. Extract <span class="fw">brand</span> <span class="fw">communication</span> from superficiality. Reset predictability algorithms. Disrupt blending in. Put an end to begging for attention—enable to attract. To thrive.</p>
 <div class="lab-cols">
 <p class="rv">We find the one thing a brand can say, show and be that no one else can—and turn it into strategy, ideas and communication people resonate with.</p>
 <p class="rv">Not louder. Different. When everything is noise, the nuxnce is what stays.</p>
@@ -1586,10 +1583,10 @@ addEventListener('hashchange',function(){if(location.hash==='#work')set(true)});
 (function(){
 var b=document.getElementById('snd');if(!b)return;var t=b.querySelector('.snd-t');
 var AC=window.AudioContext||window.webkitAudioContext;if(!AC){b.style.display='none';return}
-var ctx,master,nGain,pGain,nF,on=false,pf;
+var ctx,master,nGain,pGain,nF,on=false,pf,an,fd,eq=b.querySelectorAll('.snd-eq i'),raf=0,sm=[0,0,0,0],pk=[.01,.01,.01,.01],fl=[0,0,0,0];
 function prog(){var m=document.documentElement.scrollHeight-innerHeight;return m>0?Math.min(1,Math.max(0,scrollY/m)):0}
 function build(){
-ctx=new AC();master=ctx.createGain();master.gain.value=0;master.connect(ctx.destination);
+ctx=new AC();master=ctx.createGain();master.gain.value=0;master.connect(ctx.destination);an=ctx.createAnalyser();an.fftSize=1024;an.smoothingTimeConstant=.82;master.connect(an);fd=new Uint8Array(an.frequencyBinCount);
 /* noise: brown-ish, the thing we strip away */
 var len=ctx.sampleRate*4,buf=ctx.createBuffer(2,len,ctx.sampleRate);
 for(var c=0;c<2;c++){var d=buf.getChannelData(c),last=0;for(var i=0;i<len;i++){var w=Math.random()*2-1;last=(last+.02*w)/1.02;d[i]=last*3.5}}
@@ -1603,14 +1600,37 @@ pGain=ctx.createGain();pGain.gain.value=.05;pf.connect(pGain);pGain.connect(mast
  [-1,1].forEach(function(s){var o=ctx.createOscillator();o.type=i<2?'sine':'triangle';o.frequency.value=f;o.detune.value=s*(4+i*1.5);
   var g=ctx.createGain();g.gain.value=i<2?.5:.16;o.connect(g);g.connect(pf);
   var l=ctx.createOscillator(),lg=ctx.createGain();l.frequency.value=.04+Math.random()*.08;lg.gain.value=3;l.connect(lg);lg.connect(o.detune);l.start();o.start()})});
+
+ var dl=ctx.createDelay(1);dl.delayTime.value=.37;var fb=ctx.createGain();fb.gain.value=.38;var dtone=ctx.createBiquadFilter();dtone.type='lowpass';dtone.frequency.value=1800;
+ dl.connect(dtone);dtone.connect(fb);fb.connect(dl);dtone.connect(master);
+ var br=ctx.createOscillator(),brg=ctx.createGain();br.frequency.value=.11;brg.gain.value=.12;br.connect(brg);brg.connect(nGain.gain);br.start();
+ var sc=[220,246.94,293.66,329.63,392,440,493.88,587.33,659.25],last=-1;
+ function pluck(){if(!ctx||!on){setTimeout(pluck,900);return}
+  var p=prog(),i;do{i=Math.floor(Math.random()*sc.length)}while(i===last);last=i;
+  var t=ctx.currentTime,o=ctx.createOscillator(),g=ctx.createGain();o.type='sine';o.frequency.value=sc[i];
+  var v=(.12+.3*p)*(.6+Math.random()*.6);g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(v,t+.012);g.gain.exponentialRampToValueAtTime(.0008,t+2.2);
+  o.connect(g);g.connect(master);g.connect(dl);o.start(t);o.stop(t+2.4);
+  setTimeout(pluck,700+Math.random()*2400*(1.15-p*.5))}
+ pluck();
 tick()}
 function tick(){
 if(!ctx)return;var p=prog(),t=ctx.currentTime;
 nGain.gain.setTargetAtTime(.5-.42*p,t,.8);nF.frequency.setTargetAtTime(900-600*p,t,.8);
 pGain.gain.setTargetAtTime(.05+.5*p,t,.8);pf.frequency.setTargetAtTime(500+1500*p,t,.8)}
 addEventListener('scroll',tick,{passive:true});
+function eqLoop(){
+if(!on&&sm.every(function(v){return v<.02})){eq.forEach(function(e){e.style.height=''});raf=0;return}
+if(on&&an){an.getByteFrequencyData(fd)}else fd.fill(0);
+/* 4 bands of the real spectrum; each band is normalised between its own recent floor and peak, so it swings fully with the music */
+var ed=[1,3,6,12,32],nw=performance.now(),dt=Math.min(.2,(nw-(eqLoop.t||nw))/1000);eqLoop.t=nw;var ka=1-Math.exp(-dt/.7),kp=Math.exp(-dt/4),ks=1-Math.exp(-dt/.05),kd=1-Math.exp(-dt/.18);
+for(var k=0;k<4;k++){var s=0,n=0;for(var i=ed[k];i<ed[k+1];i++){s+=fd[i];n++}var x=s/n/255;
+ fl[k]+=(x-fl[k])*ka;var dv=x-fl[k];pk[k]=Math.max(Math.abs(dv),pk[k]*kp,.004);
+ var t2=on?Math.min(1,Math.max(0,.3+1.1*dv/pk[k]+.1*Math.min(1,x*6))):0;
+ sm[k]+=(t2-sm[k])*(t2>sm[k]?ks:kd);eq[k].style.height=(3+sm[k]*15).toFixed(1)+'px'}
+raf=requestAnimationFrame(eqLoop)}
 function set(v){
 on=v;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on);b.setAttribute('aria-label',on?'Sound on':'Sound off');t.textContent=on?'sound on':'sound off';
+if(!raf&&!matchMedia('(prefers-reduced-motion:reduce)').matches)raf=requestAnimationFrame(eqLoop);
 if(on){if(!ctx)build();if(ctx.resume)ctx.resume();tick();master.gain.cancelScheduledValues(ctx.currentTime);master.gain.setTargetAtTime(.2,ctx.currentTime,.9)}
 else if(ctx){master.gain.cancelScheduledValues(ctx.currentTime);master.gain.setTargetAtTime(0,ctx.currentTime,.35);setTimeout(function(){if(!on&&ctx&&ctx.suspend)ctx.suspend()},1800)}
 try{localStorage.setItem('nx-snd','')}catch(e){}}
