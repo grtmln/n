@@ -1748,7 +1748,7 @@ l.addEventListener('click',function(e){e.preventDefault();var o=!g.classList.con
 (function(){
 var b=document.getElementById('snd');if(!b)return;var t=b.querySelector('.snd-t');
 var AC=window.AudioContext||window.webkitAudioContext;if(!AC){b.style.display='none';return}
-var ctx,master,nGain,pGain,nF,on=false,pf,an,fd,eq=b.querySelectorAll('.snd-eq i'),raf=0,sm=[0,0,0,0],pk=[.01,.01,.01,.01],fl=[0,0,0,0];
+var ctx,master,nGain,pGain,nF,bF,bGain,on=false,pf,an,fd,eq=b.querySelectorAll('.snd-eq i'),raf=0,sm=[0,0,0,0],pk=[.01,.01,.01,.01],fl=[0,0,0,0];
 function prog(){var m=document.documentElement.scrollHeight-innerHeight;return m>0?Math.min(1,Math.max(0,scrollY/m)):0}
 function build(){
 ctx=new AC();master=ctx.createGain();master.gain.value=0;master.connect(ctx.destination);an=ctx.createAnalyser();an.fftSize=1024;an.smoothingTimeConstant=.82;master.connect(an);fd=new Uint8Array(an.frequencyBinCount);
@@ -1765,6 +1765,18 @@ pGain=ctx.createGain();pGain.gain.value=.05;pf.connect(pGain);pGain.connect(mast
  [-1,1].forEach(function(s){var o=ctx.createOscillator();o.type=i<4?'sine':'triangle';o.frequency.value=f;o.detune.value=s*(4+i*1.5);
   var g=ctx.createGain();g.gain.value=i<4?(i<2?.55:.5):.16;o.connect(g);g.connect(pf);
   var l=ctx.createOscillator(),lg=ctx.createGain();l.frequency.value=.04+Math.random()*.08;lg.gain.value=3;l.connect(lg);lg.connect(o.detune);l.start();o.start()})});
+
+ /* bass drone: very soft, deep sines, almost still */
+ var bF=ctx.createBiquadFilter();bF.type='lowpass';bF.frequency.value=100;bF.Q.value=.4;
+ var bGain=ctx.createGain();bGain.gain.value=0;bF.connect(bGain);bGain.connect(master);
+ [[32.7,.9,0],[49,.5,-2],[65.41,.2,2]].forEach(function(d){
+  var o=ctx.createOscillator();o.type='sine';o.frequency.value=d[0];o.detune.value=d[2];var g=ctx.createGain();g.gain.value=d[1];o.connect(g);g.connect(bF);
+  var l=ctx.createOscillator(),lg=ctx.createGain();l.frequency.value=.02+Math.random()*.015;lg.gain.value=1;l.connect(lg);lg.connect(o.detune);l.start();o.start()});
+ var sF=ctx.createBiquadFilter();sF.type='lowpass';sF.frequency.value=230;sF.Q.value=.6;var sG=ctx.createGain();sG.gain.value=.22;sF.connect(sG);sG.connect(bGain);
+ [[49,3],[49,-3],[65.41,0]].forEach(function(d){var o=ctx.createOscillator();o.type='sawtooth';o.frequency.value=d[0];o.detune.value=d[1];var g=ctx.createGain();g.gain.value=d[0]>60?.12:.2;o.connect(g);g.connect(sF);
+  var l=ctx.createOscillator(),lg=ctx.createGain();l.frequency.value=.025+Math.random()*.015;lg.gain.value=1.5;l.connect(lg);lg.connect(o.detune);l.start();o.start()});
+ var bl=ctx.createOscillator(),blg=ctx.createGain();bl.frequency.value=.035;blg.gain.value=.03;bl.connect(blg);blg.connect(bGain.gain);bl.start();
+ bGain.gain.setTargetAtTime(.24,ctx.currentTime+3,6);
 
  var dl=ctx.createDelay(1);dl.delayTime.value=.37;var fb=ctx.createGain();fb.gain.value=.38;var dtone=ctx.createBiquadFilter();dtone.type='lowpass';dtone.frequency.value=1800;
  dl.connect(dtone);dtone.connect(fb);fb.connect(dl);dtone.connect(master);
