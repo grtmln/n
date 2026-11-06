@@ -1596,19 +1596,19 @@ nGain=ctx.createGain();nGain.gain.value=.5;ns.connect(nF);nF.connect(nGain);nGai
 /* what remains: a soft open chord that clears as you go deeper */
 pf=ctx.createBiquadFilter();pf.type='lowpass';pf.frequency.value=500;pf.Q.value=.3;
 pGain=ctx.createGain();pGain.gain.value=.05;pf.connect(pGain);pGain.connect(master);
-[110,164.81,220,329.63,493.88].forEach(function(f,i){
- [-1,1].forEach(function(s){var o=ctx.createOscillator();o.type=i<2?'sine':'triangle';o.frequency.value=f;o.detune.value=s*(4+i*1.5);
-  var g=ctx.createGain();g.gain.value=i<2?.5:.16;o.connect(g);g.connect(pf);
+[55,82.41,110,164.81,220,329.63,493.88].forEach(function(f,i){
+ [-1,1].forEach(function(s){var o=ctx.createOscillator();o.type=i<4?'sine':'triangle';o.frequency.value=f;o.detune.value=s*(4+i*1.5);
+  var g=ctx.createGain();g.gain.value=i<4?(i<2?.55:.5):.16;o.connect(g);g.connect(pf);
   var l=ctx.createOscillator(),lg=ctx.createGain();l.frequency.value=.04+Math.random()*.08;lg.gain.value=3;l.connect(lg);lg.connect(o.detune);l.start();o.start()})});
 
  var dl=ctx.createDelay(1);dl.delayTime.value=.37;var fb=ctx.createGain();fb.gain.value=.38;var dtone=ctx.createBiquadFilter();dtone.type='lowpass';dtone.frequency.value=1800;
  dl.connect(dtone);dtone.connect(fb);fb.connect(dl);dtone.connect(master);
- var br=ctx.createOscillator(),brg=ctx.createGain();br.frequency.value=.11;brg.gain.value=.12;br.connect(brg);brg.connect(nGain.gain);br.start();
- var sc=[220,246.94,293.66,329.63,392,440,493.88,587.33,659.25],last=-1;
- function pluck(){if(!ctx||!on){setTimeout(pluck,900);return}
+ var br=ctx.createOscillator(),brg=ctx.createGain();br.frequency.value=.045;brg.gain.value=.12;br.connect(brg);brg.connect(nGain.gain);br.start();
+ var t0=ctx.currentTime,sc=[110,146.83,164.81,220,246.94,293.66,329.63,392,440,493.88,587.33,659.25],last=-1;
+ function pluck(){if(!ctx||!on||ctx.currentTime-t0<16){setTimeout(pluck,900);return}
   var p=prog(),i;do{i=Math.floor(Math.random()*sc.length)}while(i===last);last=i;
   var t=ctx.currentTime,o=ctx.createOscillator(),g=ctx.createGain();o.type='sine';o.frequency.value=sc[i];
-  var v=(.12+.3*p)*(.6+Math.random()*.6);g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(v,t+.012);g.gain.exponentialRampToValueAtTime(.0008,t+2.2);
+  var v=(.12+.3*p)*(.6+Math.random()*.6)*Math.min(1,(t-t0-16)/20+.15);g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(v,t+.012);g.gain.exponentialRampToValueAtTime(.0008,t+2.2);
   o.connect(g);g.connect(master);g.connect(dl);o.start(t);o.stop(t+2.4);
   setTimeout(pluck,700+Math.random()*2400*(1.15-p*.5))}
  pluck();
