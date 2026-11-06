@@ -557,8 +557,8 @@ function build(){
   var cols=Math.max(8,Math.round(Math.sqrt(want*gw/gh))),rows=Math.max(6,Math.round(want/cols)),N=cols*rows;
   P=[];S=[];
   for(var i=0;i<N;i++){
-    var q0=Math.random(),sz=q0<.7?.7+Math.random()*1.7:q0<.92?2.6+Math.random()*2.4:q0<.985?5.2+Math.random()*3.8:9+Math.random()*7;
-    var p={rx:-W*.12+Math.random()*W*1.24,ry:-H*.12+Math.random()*H*1.24,ph:Math.random()*6.283,e:.025+Math.random()*.05,ha:[.07+Math.random()*.1,.05+Math.random()*.1,.03+Math.random()*.07,.02+Math.random()*.05],out:false,shw:1,rdn:sz,can:sz<2.6?.3+Math.random()*.2:sz<5.2?.17+Math.random()*.1:.08+Math.random()*.08,am:50+Math.random()*Math.random()*300,sf:.6+Math.random()*.9,
+    var sz=2.4;
+    var p={rx:W*(-.2+1.4*((i*.6180339+Math.random()*.25)%1)),ry:H*(-.2+1.4*((i*.7548777+Math.random()*.25)%1)),ph:Math.random()*6.283,e:.025+Math.random()*.05,ha:[.07+Math.random()*.1,.05+Math.random()*.1,.03+Math.random()*.07,.02+Math.random()*.05],out:false,shw:1,rdn:sz,can:.4,am:70+Math.random()*Math.random()*420,sf:.6+Math.random()*.9,
       gx:x0+(i%cols)*gw/(cols-1),gy:y0+((i/cols)|0)*gh/(rows-1),xx:W/2,yy:geo.cy,
       cr:190,cg:190,cb:205,ca:.4,rd:sz,bl:1,sp:i%40===5,ci:((i/40)|0)%4,tr:[],mv:false};
     p.x=p.rx;p.y=p.ry;
@@ -607,7 +607,7 @@ function step(T,pi,lp,draw){
     g.fillStyle='rgba('+col+','+(p.ca*(1-p.bl*.55)).toFixed(2)+')';
     var R=p.rd*(1+p.bl*3.2),sw=p.shw;
     p.shw+=((pi===0?1:0)-sw)*.05;
-    if(sw<.3){g.beginPath();g.arc(p.x,p.y,R,0,6.283);g.fill()}
+    if(sw<2){g.beginPath();g.arc(p.x,p.y,R,0,6.283);g.fill()}
     else{
       /* organic form: harmonics drift at their own unrelated speeds, so every shape lives differently and never repeats */
       var NN=R<6?18:R<20?28:40,tt=s*p.sf,pp=p.ph,A=p.ha,j,aa,rr,ru=1-(1-sw)*.0;
