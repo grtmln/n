@@ -33,7 +33,10 @@ nav a:hover{opacity:1}
 .logo{display:block;margin:0!important;opacity:1!important}
 .logo img{animation:logoOn 1.4s linear 1.4s}
 @keyframes logoOn{0%,8%{opacity:0}9%{opacity:.85}10.5%{opacity:.05}13%{opacity:.7}14.5%,22%{opacity:0}23%{opacity:1}25%{opacity:.15}28%{opacity:.9}30%,34%{opacity:.3}35%{opacity:1}38%{opacity:.55}41%,100%{opacity:1}}
-@media (prefers-reduced-motion:reduce){.logo img{animation:none}}
+@keyframes logoOff{0%{opacity:1}6%{opacity:.25}11%{opacity:.95}18%{opacity:.1}26%{opacity:.7}33%,36%{opacity:.14}40%{opacity:.4}46%,100%{opacity:.16}}
+.logo img.lo{animation:logoOff .9s linear forwards}.logo img.li{animation:logoOn 1.4s linear forwards}
+.logo{cursor:pointer}
+@media (prefers-reduced-motion:reduce){.logo img{animation:none}.logo img.lo{opacity:.16;animation:none}.logo img.li{animation:none}}
 .logo img{height:22px;width:auto;display:block;max-width:100%}
 nav{gap:16px}.snd+.nav-links{margin-left:-16px}.logo{flex:0 1 auto;min-width:0}
 @media (max-width:420px){.logo img{height:clamp(15px,5vw,22px)}}
@@ -314,7 +317,7 @@ html.menu-open{overflow:hidden;scrollbar-gutter:stable}
 .menu-list i{font-style:normal;font-family:var(--f-mono);font-weight:400;font-size:12px;letter-spacing:.06em;color:var(--mute);transition:color .3s}
 .menu-list a.cur i{color:var(--org)}
 .menu-list a:hover,.menu-list a:active{color:var(--org)}
-.menu-foot{margin:26px 0 0;font-family:var(--f-mono);font-size:12px;line-height:1.5;text-transform:lowercase;color:var(--mute)}
+.menu-foot{margin:26px 0 0;font-family:var(--f-mono);font-size:12px;line-height:1.5;text-transform:none;color:var(--mute)}
 .menu-list li,.menu-foot{opacity:0;transform:translateY(18px);filter:blur(10px);transition:opacity .3s,transform .3s,filter .3s}
 .menu.open .menu-list li,.menu.open .menu-foot{opacity:1;transform:none;filter:none;transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1),filter .8s cubic-bezier(.16,1,.3,1)}
 .menu.open li:nth-child(1){transition-delay:.08s}.menu.open li:nth-child(2){transition-delay:.14s}.menu.open li:nth-child(3){transition-delay:.20s}.menu.open li:nth-child(4){transition-delay:.26s}.menu.open li:nth-child(5){transition-delay:.32s}.menu.open li:nth-child(6){transition-delay:.38s}.menu.open .menu-foot{transition-delay:.5s}
@@ -1658,6 +1661,9 @@ function set(open){
 btn.addEventListener('click',function(){set(!menu.classList.contains('open'))});
 links.forEach(function(a){a.addEventListener('click',function(){set(false)})});
 var lg=nav.querySelector('.logo');if(lg)lg.addEventListener('click',function(){set(false)});
+(function(){var l=nav.querySelector('.logo'),im=l&&l.querySelector('img');if(!im)return;var off=false;
+ l.setAttribute('role','button');l.setAttribute('aria-pressed','true');
+ l.addEventListener('click',function(e){e.preventDefault();off=!off;im.classList.remove('lo','li');void im.offsetWidth;im.classList.add(off?'lo':'li');l.setAttribute('aria-pressed',off?'false':'true')})})();
 addEventListener('keydown',function(e){if(e.key==='Escape'&&menu.classList.contains('open')){set(false);btn.focus()}});
 function wide(){if(!mq.matches)set(false)}
 if(mq.addEventListener)mq.addEventListener('change',wide);else mq.addListener(wide);
