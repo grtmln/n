@@ -36,6 +36,7 @@ nav a:hover{opacity:1}
 @keyframes logoOff{0%{opacity:1}6%{opacity:.25}11%{opacity:.95}18%{opacity:.1}26%{opacity:.7}33%,36%{opacity:.14}40%{opacity:.4}46%,100%{opacity:.16}}
 .logo img.lo{animation:logoOff .9s linear forwards}.logo img.li{animation:logoOn 1.4s linear forwards}
 .logo{cursor:pointer}
+:root[data-theme="dark"] .grain{opacity:.7}
 @media (prefers-reduced-motion:reduce){.logo img{animation:none}.logo img.lo{opacity:.16;animation:none}.logo img.li{animation:none}}
 .logo img{height:22px;width:auto;display:block;max-width:100%}
 nav{gap:16px}.snd+.nav-links{margin-left:-16px}.logo{flex:0 1 auto;min-width:0}
@@ -1663,7 +1664,7 @@ links.forEach(function(a){a.addEventListener('click',function(){set(false)})});
 var lg=nav.querySelector('.logo');if(lg)lg.addEventListener('click',function(){set(false)});
 (function(){var l=nav.querySelector('.logo'),im=l&&l.querySelector('img');if(!im)return;var off=false;
  l.setAttribute('role','button');l.setAttribute('aria-pressed','true');
- l.addEventListener('click',function(e){e.preventDefault();off=!off;im.classList.remove('lo','li');void im.offsetWidth;im.classList.add(off?'lo':'li');l.setAttribute('aria-pressed',off?'false':'true')})})();
+ l.addEventListener('click',function(e){e.preventDefault();off=!off;im.classList.remove('lo','li');void im.offsetWidth;im.classList.add(off?'lo':'li');l.setAttribute('aria-pressed',off?'false':'true');var th=off?'dark':'color';document.documentElement.setAttribute('data-theme',th);dispatchEvent(new CustomEvent('nx-theme',{detail:th}))})})();
 addEventListener('keydown',function(e){if(e.key==='Escape'&&menu.classList.contains('open')){set(false);btn.focus()}});
 function wide(){if(!mq.matches)set(false)}
 if(mq.addEventListener)mq.addEventListener('change',wide);else mq.addListener(wide);
