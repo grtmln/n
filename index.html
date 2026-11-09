@@ -7,6 +7,20 @@
 <meta name="format-detection" content="telephone=no,email=no">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>nuxnce — mean something</title>
+<meta name="description" content="nuxnce — difference lab. A multidisciplinary laboratory of distinctiveness, headquartered in Bratislava, ideating globally.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="nuxnce — difference lab">
+<meta property="og:title" content="nuxnce — mean something">
+<meta property="og:description" content="A multidisciplinary laboratory of distinctiveness.">
+<meta property="og:url" content="https://nuxnce.com/">
+<meta property="og:image" content="https://nuxnce.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="nuxnce — difference lab">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="nuxnce — mean something">
+<meta name="twitter:description" content="A multidisciplinary laboratory of distinctiveness.">
+<meta name="twitter:image" content="https://nuxnce.com/og-image.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400..800&family=Inter+Tight:wght@300..700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -367,6 +381,20 @@ radial-gradient(40% 58% at 16% 80%,color-mix(in srgb,var(--c1) 70%,transparent) 
 .slot-tag b{width:7px;height:7px;border-radius:50%;background:var(--fg);animation:slotDot 2.4s ease-in-out infinite}
 @keyframes slotDot{0%,100%{opacity:.25;transform:scale(.8)}50%{opacity:1;transform:scale(1)}}
 @media (max-width:720px){.work-slots{grid-template-columns:1fr}.slot{aspect-ratio:16/7}}
+.refs{grid-template-columns:repeat(3,minmax(0,1fr))}
+.refs .slot.ref{aspect-ratio:4/5;display:flex;flex-direction:column;justify-content:space-between;padding:clamp(20px,2.4vw,32px);color:var(--fg);text-decoration:none;transition:border-color .4s ease}
+.refs .slot.ref:hover,.refs .slot.ref:focus-visible{border-color:rgb(var(--ink) / .4);outline:0}
+.ref-top,.ref-url{display:flex;align-items:center;justify-content:space-between;gap:16px;font-family:var(--f-mono);font-size:12px;letter-spacing:.01em;text-transform:lowercase}
+.ref-mid{display:block}
+.ref-name{display:block;font-family:var(--f-display);font-weight:800;font-size:clamp(34px,3.9vw,64px);letter-spacing:-.04em;line-height:.95;overflow-wrap:anywhere}
+.ref-desc{display:block;margin-top:14px;max-width:24em;font-size:clamp(15px,1.4vw,18px);line-height:1.35;color:color-mix(in srgb,var(--fg) 90%,transparent)}
+.ref-ar{flex:none;transition:transform .45s cubic-bezier(.2,.7,.2,1)}
+.ref:hover .ref-ar,.ref:focus-visible .ref-ar{transform:translate(4px,-4px)}
+.ref-bl{filter:blur(9px);-webkit-user-select:none;user-select:none;opacity:.8}
+.ref-wip{cursor:default}.ref-st{display:flex;align-items:center;gap:8px}.ref-st i{width:7px;height:7px;border-radius:50%;background:var(--fg);animation:slotDot 2.4s ease-in-out infinite}
+@media (max-width:960px){.refs{grid-template-columns:1fr}.refs .slot.ref{aspect-ratio:auto;min-height:260px;gap:40px}}
+@media (prefers-reduced-motion:reduce){.ref-st i{animation:none}}
+
 @media (prefers-reduced-motion:reduce){.slot::before,.slot::after,.slot-tag b{animation:none}}
 </style>
 </head>
@@ -474,10 +502,10 @@ radial-gradient(40% 58% at 16% 80%,color-mix(in srgb,var(--c1) 70%,transparent) 
 <p class="work-note rv">We’re working on fresh projects we’ll be glad to show you soon.</p>
 <button type="button" class="work-tg rv" id="worktg" aria-expanded="false" aria-controls="workbody"><span class="work-tg-t">take a peek</span><i aria-hidden="true"></i></button>
 <div class="work-body" id="workbody"><div class="work-in">
-<div class="work-slots" aria-hidden="true">
-<div class="slot" style="--c1:var(--red);--c2:var(--org)"><span class="slot-tag"><span>coming into focus</span><b></b></span></div>
-<div class="slot" style="--c1:var(--grn);--c2:var(--blue)"><span class="slot-tag"><span>coming into focus</span><b></b></span></div>
-<div class="slot" style="--c1:var(--blue);--c2:var(--red)"><span class="slot-tag"><span>coming into focus</span><b></b></span></div>
+<div class="work-slots refs">
+<a class="slot ref" href="https://inferea.com/" target="_blank" rel="noopener" style="--c1:var(--blue);--c2:var(--grn)"><span class="ref-top"><span>01</span><span>brand creation</span></span><span class="ref-mid"><b class="ref-name">Inferea</b><span class="ref-desc">Creation of the brand for a software engineering firm.</span></span><span class="ref-url"><span>inferea.com</span><svg class="ref-ar" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12L12 4M5.5 4H12v6.5"/></svg></span></a>
+<a class="slot ref" href="https://grvvity.com/" target="_blank" rel="noopener" style="--c1:var(--red);--c2:var(--blue)"><span class="ref-top"><span>02</span><span>brand · communication · launch</span></span><span class="ref-mid"><b class="ref-name">grvvity</b><span class="ref-desc">Brand creation, communication and global launch of a hiring alternative.</span></span><span class="ref-url"><span>grvvity.com</span><svg class="ref-ar" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12L12 4M5.5 4H12v6.5"/></svg></span></a>
+<div class="slot ref ref-wip" style="--c1:var(--org);--c2:var(--red)"><span class="ref-top"><span>03</span><span class="ref-st"><i aria-hidden="true"></i>in progress · pro bono</span></span><span class="ref-mid"><b class="ref-name ref-bl" aria-hidden="true">Hidden</b><span class="ref-desc">New branding for an existing brand: one of the leading non-profit organisations supporting children in difficult circumstances.</span></span><span class="ref-url ref-bl" aria-hidden="true"><span>hidden.org</span></span></div>
 </div>
 </div></div>
 </section>
