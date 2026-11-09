@@ -519,7 +519,7 @@ radial-gradient(40% 58% at 16% 80%,color-mix(in srgb,var(--c1) 70%,transparent) 
 <a class="mail" href="mailto:hello@nuxnce.com">hello@nuxnce.com</a>
 <button type="button" class="work-tg cf-tg rv" id="cftg" aria-expanded="false" aria-controls="cfbody"><svg class="cf-leaf" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width=".8" stroke-linejoin="round" stroke-linecap="round"><path d="M12 2.5l1.8 4 2.8-.9-.7 4 3.9-1.3-1.3 3.5 2.7 1.3-4.1 1.8.4 2.7-4.5-1.1V21.5h-1.6v-3.6l-4.5 1.1.4-2.7L3.1 14.7l2.7-1.3-1.3-3.5 3.9 1.3-.7-4 2.8.9z"/><path d="M12 21.5V10M12 14.5l-3.4-2.6M12 14.5l3.4-2.6M12 11l-1.8-3M12 11l1.8-3" opacity=".55"/></svg><span class="work-tg-t">write to us</span><svg class="cf-pens" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"><g class="cf-pen pa"><path d="M1.5 12l4.8-1.7v3.4z"/><path d="M6.3 10.3h14.2a1.1 1.1 0 0 1 1.1 1.1v1.2a1.1 1.1 0 0 1-1.1 1.1H6.3"/><path d="M9.5 10.3v3.4M12.5 10.3v3.4"/><path d="M14 10.3V8.9h6.6"/></g><g class="cf-pen pb"><path d="M1.5 12l4.8-1.7v3.4z"/><path d="M6.3 10.3h14.2a1.1 1.1 0 0 1 1.1 1.1v1.2a1.1 1.1 0 0 1-1.1 1.1H6.3"/><path d="M9.5 10.3v3.4M12.5 10.3v3.4"/><path d="M14 10.3V8.9h6.6"/></g></svg></button>
 <div class="work-body" id="cfbody"><div class="work-in">
-<form class="cf" id="cf" action="https://formsubmit.co/milanferencik91@gmail.com" method="POST" enctype="multipart/form-data" novalidate>
+<form class="cf" id="cf" action="https://formsubmit.co/milanferencik91@gmail.com" method="POST" enctype="multipart/form-data" accept-charset="UTF-8" novalidate>
 <div class="cf-row"><label><span>name</span><input type="text" name="name" autocomplete="name" placeholder="your name, company or organisation" required></label><label><span>email</span><input type="email" name="email" autocomplete="email" placeholder="your email" required></label></div>
 <label><span>message</span><textarea name="message" rows="5" placeholder="your message" required></textarea></label>
 <div class="cf-file"><input type="file" name="attachment" id="cf-att"><label for="cf-att" class="cf-pick"><span class="cf-pt">attach a file</span></label><span class="cf-max" id="cf-name">max. file size 5 MB</span></div>
@@ -1709,22 +1709,31 @@ addEventListener('hashchange',function(){if(location.hash==='#work')set(true)});
 </script>
 <script>
 (function(){var f=document.getElementById('cf');if(!f)return;
-var MAX=5*1024*1024,att=document.getElementById('cf-att'),nm=document.getElementById('cf-name'),st=document.getElementById('cf-status'),btn=f.querySelector('.cf-send'),def=nm.textContent;
+var MAX=5*1024*1024,EP='https://formsubmit.co/ajax/milanferencik91@gmail.com',
+ att=document.getElementById('cf-att'),nm=document.getElementById('cf-name'),st=document.getElementById('cf-status'),btn=f.querySelector('.cf-send'),def=nm.textContent;
 function size(b){return b<1048576?Math.max(1,Math.round(b/1024))+' KB':(b/1048576).toFixed(1)+' MB'}
+function say(t,c){st.textContent=t;st.className='cf-status'+(c?' '+c:'')}
 att.addEventListener('change',function(){var x=att.files[0];nm.classList.remove('err');if(!x){nm.textContent=def;return}
  if(x.size>MAX){nm.textContent=x.name+' ('+size(x.size)+') is over the 5 MB limit';nm.classList.add('err');att.value='';return}
  nm.textContent=x.name+' · '+size(x.size)+' · max. file size 5 MB'});
-function say(t,c){st.textContent=t;st.className='cf-status'+(c?' '+c:'')}
+function done(){f.reset();nm.textContent=def;say('Thank you. Your message is on its way.','ok')}
 f.addEventListener('submit',function(e){e.preventDefault();
  var bad=false;['name','email','message'].forEach(function(n){var el=f.elements[n],v=el.value.trim(),ok=v&&(n!=='email'||/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v));el.setAttribute('aria-invalid',ok?'false':'true');if(!ok)bad=true});
  var cs=f.elements.consent;cs.setAttribute('aria-invalid',cs.checked?'false':'true');
  if(bad){say('Please fill in your name, a valid email and a message.','err');return}
  if(!cs.checked){say('Please agree to the processing of personal data.','err');return}
  if(att.files[0]&&att.files[0].size>MAX){say('The attachment is over the 5 MB limit.','err');return}
+ if(f.elements._honey&&f.elements._honey.value){done();return}
  btn.disabled=true;say('Sending…');
- fetch('https://formsubmit.co/ajax/milanferencik91@gmail.com',{method:'POST',body:new FormData(f),headers:{'Accept':'application/json'}})
- .then(function(r){return r.json().catch(function(){return{}}).then(function(j){if(r.ok&&j.success!=='false'&&j.success!==false){f.reset();nm.textContent=def;say('Thank you. Your message is on its way.','ok')}else throw new Error(j.message||'fail')})})
- .catch(function(){say('Something went wrong. Please try again or write to hello@nuxnce.com.','err')})
+ fetch(EP,{method:'POST',body:new FormData(f),headers:{'Accept':'application/json'}})
+ .then(function(r){return r.json().then(function(j){return{ok:r.ok,j:j}},function(){return{ok:r.ok,j:{}}})})
+ .then(function(x){var j=x.j||{};
+  if(x.ok&&j.success!=='false'&&j.success!==false){done();return}
+  if(/activat/i.test(j.message||''))say('The form is waiting for activation. Please try again later or write to hello@nuxnce.com.','err');
+  else say('Something went wrong. Please try again or write to hello@nuxnce.com.','err')})
+ .catch(function(){
+  /* the background request could not be made (offline, blocked, opened as a local file) — send the form the classic way instead */
+  say('Sending…');setTimeout(function(){HTMLFormElement.prototype.submit.call(f)},250)})
  .then(function(){btn.disabled=false})});
 })();
 </script>
