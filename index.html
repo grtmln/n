@@ -399,58 +399,6 @@ radial-gradient(40% 58% at 16% 80%,color-mix(in srgb,var(--c1) 70%,transparent) 
 @media (prefers-reduced-motion:reduce){.ref-st i{animation:none}}
 
 @media (prefers-reduced-motion:reduce){.slot::before,.slot::after,.slot-tag b{animation:none}}
-
-/* business card: a thick little brick that turns in 3D */
-.bc{padding:14vh 5vw 16vh;max-width:1280px;margin:auto;text-align:center}
-.bc h2{margin:0 auto}
-.bc-stage{--w:clamp(290px,78vw,620px);--h:calc(var(--w)*.647);--t:calc(var(--w)*.0075);--r:calc(var(--w)*.026);position:relative;width:var(--w);margin:clamp(48px,9vh,96px) auto 0;perspective:1600px;touch-action:pan-y;user-select:none;-webkit-user-select:none}
-.bc-card{position:relative;width:var(--w);height:var(--h);transform-style:preserve-3d;cursor:grab;will-change:transform;outline:0}
-.bc-card.drag{cursor:grabbing}
-.bc-card:focus-visible{outline:1px solid var(--fg);outline-offset:14px;border-radius:var(--r)}
-.bc-f,.bc-b{position:absolute;inset:0;border-radius:var(--r);overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;container-type:inline-size;isolation:isolate;color:#fff;text-align:left;box-shadow:0 0 2px rgba(0,0,0,.55),0 0 0 .5px rgba(0,0,0,.35),inset 0 0 0 1px rgba(255,255,255,.14),inset 0 1px 0 rgba(255,255,255,.28)}
-.bc-f,.bc-b{outline:1px solid transparent}
-.bc-mesh,.bc-grain,.bc-glare,.bc-f::before,.bc-b::before{inset:1px!important;border-radius:calc(var(--r) - 1px);clip-path:inset(0 round calc(var(--r) - 1px));-webkit-clip-path:inset(0 round calc(var(--r) - 1px))}
-.bc-w{outline:1px solid transparent;box-shadow:0 0 1.5px rgba(0,0,0,.5);position:absolute;left:50%;top:50%;height:var(--t);margin-top:calc(var(--t)/-2);pointer-events:none}
-.bc-f{transform:translateZ(calc(var(--t)/2))}
-.bc-b{transform:rotateY(180deg) translateZ(calc(var(--t)/2))}
-/* faces */
-
-.bc-f{background:#08080d}
-.bc-b{background:#0a0910}
-.bc-mesh{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}
-.bc-mesh i{position:absolute;display:block;filter:blur(var(--bl,5cqw));transform:rotate(var(--rot,0deg));will-change:transform;animation:bcd1 15s ease-in-out infinite alternate}
-.bc-mesh i:nth-child(2){animation-name:bcd2;animation-duration:19s}
-.bc-mesh i:nth-child(3){animation-name:bcd3;animation-duration:23s}
-.bc-mesh i:nth-child(4){animation-name:bcd2;animation-duration:27s;animation-direction:alternate-reverse}
-.bc-mesh i:nth-child(6){animation-name:bcd3;animation-duration:25s;animation-direction:alternate-reverse}
-.bc-mesh i:nth-child(5){animation-name:bcd1;animation-duration:21s;animation-direction:alternate-reverse}
-@keyframes bcd1{to{transform:translate(12cqw,7cqw) rotate(calc(var(--rot) + 22deg)) scale(1.15,.9)}}
-@keyframes bcd2{to{transform:translate(-10cqw,9cqw) rotate(calc(var(--rot) - 26deg)) scale(.9,1.2)}}
-@keyframes bcd3{to{transform:translate(8cqw,-9cqw) rotate(calc(var(--rot) + 30deg)) scale(1.12,1)}}
-@media (prefers-reduced-motion:reduce){.bc-mesh i{animation:none}}
-.bc-f::before,.bc-b::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(6,6,10,.0) 30%,rgba(6,6,10,.55));pointer-events:none}
-.bc-grain{position:absolute;inset:0;z-index:2;pointer-events:none;mix-blend-mode:overlay;opacity:.85;background-size:260px 260px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.3' numOctaves='4' seed='11' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='2.2' intercept='-.6'/%3E%3CfeFuncG type='linear' slope='2.2' intercept='-.6'/%3E%3CfeFuncB type='linear' slope='2.2' intercept='-.6'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
-.bc-glare{position:absolute;inset:0;z-index:3;pointer-events:none;mix-blend-mode:soft-light;background:radial-gradient(60% 80% at var(--gx,30%) var(--gy,20%),rgba(255,255,255,.6),transparent 65%)}
-.bc-in{position:relative;z-index:1;height:100%;padding:6.2cqw 6.6cqw;display:flex;flex-direction:column;justify-content:space-between}
-.bc-logo{display:block;height:5.4cqw;width:auto;align-self:flex-start;opacity:.95}
-.bc-name{font-family:var(--f-display);font-weight:800;font-size:7.4cqw;line-height:1;letter-spacing:-.045em;margin:0;-webkit-text-stroke:.02em currentColor}
-.bc-role{margin:2.2cqw 0 0;font-family:var(--f-display);font-weight:600;font-size:3.1cqw;line-height:1.2;letter-spacing:-.02em}
-.bc-dep{margin:.6cqw 0 0;font-family:var(--f-mono);font-size:2.25cqw;letter-spacing:.01em;opacity:.78;text-transform:lowercase}
-.bc-ct{display:flex;flex-direction:column;gap:.9cqw;font-family:var(--f-mono);font-size:2.5cqw;line-height:1.35;letter-spacing:0}
-.bc-dim{opacity:.45}
-.bc-ct span{display:block;filter:blur(1.15cqw);-webkit-user-select:none;user-select:none}
-.bc-ct i{font-style:normal;opacity:.6;margin-right:1.6cqw}
-.bc-bottom{display:flex;justify-content:space-between;align-items:flex-end;gap:4cqw}
-.bc-b .bc-in{justify-content:center;align-items:center;text-align:center;gap:11cqw}
-.bc-b .bc-logo{align-self:center;height:4.6cqw}
-.bc-msg{margin:0;max-width:19em;font-family:var(--f-display);font-weight:700;font-size:4.7cqw;line-height:1.14;letter-spacing:-.035em;text-wrap:balance;-webkit-text-stroke:.015em currentColor}
-.bc-foot{margin:0;font-family:var(--f-mono);font-size:2.2cqw;letter-spacing:.01em;opacity:.8;text-transform:lowercase}
-.bc-shadow{position:absolute;left:8%;right:8%;bottom:calc(var(--h)*-.34);height:calc(var(--h)*.2);background:radial-gradient(closest-side,rgba(0,0,0,.6),transparent);filter:blur(14px);pointer-events:none;transform-origin:50% 50%}
-.bc-ui{margin-top:clamp(64px,10vh,104px);display:flex;justify-content:center;align-items:center;gap:18px;flex-wrap:wrap}
-.bc-flip{padding:14px 28px;border:1px solid var(--line);border-radius:99px;color:var(--fg);background:rgb(var(--ink) / 0.06);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);font-family:var(--f-mono);font-size:14px;text-transform:lowercase;letter-spacing:0;cursor:pointer;transition:background .3s,color .3s,transform .3s}
-.bc-flip:hover{background:var(--fg);color:var(--bg)}
-.bc-flip:active{transform:scale(.97)}
-.bc-hint{font-family:var(--f-mono);font-size:12px;color:var(--mute);text-transform:lowercase}
 </style>
 </head>
 <body>
@@ -593,40 +541,6 @@ radial-gradient(40% 58% at 16% 80%,color-mix(in srgb,var(--c1) 70%,transparent) 
 </form>
 </div></div>
 </section>
-
-<section class="bc" id="card" aria-label="Business card of Milan Ferenčík. Drag to turn it, click or press the button to flip it over.">
-<h2 class="rv" data-focus>Anti-business card</h2>
-<div class="bc-stage rv" id="bcStage">
-<div class="bc-shadow" id="bcSh"></div>
-<div class="bc-card" id="bcCard" tabindex="0" role="group" aria-label="Business card, flip with Enter or Space">
-<div class="bc-f">
-<div class="bc-mesh" aria-hidden="true"><i style="left:-40cqw;top:-44cqw;width:118cqw;height:108cqw;--rot:0deg;--bl:9cqw;border-radius:50%;background:radial-gradient(closest-side,rgba(255,42,42,0.950) 0%,rgba(255,42,42,0.921) 7%,rgba(255,42,42,0.841) 14%,rgba(255,42,42,0.721) 21%,rgba(255,42,42,0.582) 29%,rgba(255,42,42,0.442) 36%,rgba(255,42,42,0.316) 43%,rgba(255,42,42,0.212) 50%,rgba(255,42,42,0.134) 57%,rgba(255,42,42,0.080) 64%,rgba(255,42,42,0.044) 71%,rgba(255,42,42,0.023) 79%,rgba(255,42,42,0.012) 86%,rgba(255,42,42,0.005) 93%,rgba(255,42,42,0.000) 100%)"></i><i style="left:32cqw;top:-52cqw;width:124cqw;height:112cqw;--rot:0deg;--bl:9cqw;border-radius:50%;background:radial-gradient(closest-side,rgba(27,77,255,0.950) 0%,rgba(27,77,255,0.921) 7%,rgba(27,77,255,0.841) 14%,rgba(27,77,255,0.721) 21%,rgba(27,77,255,0.582) 29%,rgba(27,77,255,0.442) 36%,rgba(27,77,255,0.316) 43%,rgba(27,77,255,0.212) 50%,rgba(27,77,255,0.134) 57%,rgba(27,77,255,0.080) 64%,rgba(27,77,255,0.044) 71%,rgba(27,77,255,0.023) 79%,rgba(27,77,255,0.012) 86%,rgba(27,77,255,0.005) 93%,rgba(27,77,255,0.000) 100%)"></i><i style="left:-10cqw;top:16cqw;width:130cqw;height:104cqw;--rot:0deg;--bl:9cqw;border-radius:50%;background:radial-gradient(closest-side,rgba(255,138,31,0.900) 0%,rgba(255,138,31,0.873) 7%,rgba(255,138,31,0.796) 14%,rgba(255,138,31,0.683) 21%,rgba(255,138,31,0.551) 29%,rgba(255,138,31,0.419) 36%,rgba(255,138,31,0.299) 43%,rgba(255,138,31,0.201) 50%,rgba(255,138,31,0.127) 57%,rgba(255,138,31,0.075) 64%,rgba(255,138,31,0.042) 71%,rgba(255,138,31,0.022) 79%,rgba(255,138,31,0.011) 86%,rgba(255,138,31,0.005) 93%,rgba(255,138,31,0.000) 100%)"></i><i style="left:52cqw;top:10cqw;width:84cqw;height:76cqw;--rot:0deg;--bl:9cqw;border-radius:50%;background:radial-gradient(closest-side,rgba(130,60,255,0.550) 0%,rgba(130,60,255,0.533) 7%,rgba(130,60,255,0.487) 14%,rgba(130,60,255,0.418) 21%,rgba(130,60,255,0.337) 29%,rgba(130,60,255,0.256) 36%,rgba(130,60,255,0.183) 43%,rgba(130,60,255,0.123) 50%,rgba(130,60,255,0.078) 57%,rgba(130,60,255,0.046) 64%,rgba(130,60,255,0.026) 71%,rgba(130,60,255,0.014) 79%,rgba(130,60,255,0.007) 86%,rgba(130,60,255,0.003) 93%,rgba(130,60,255,0.000) 100%)"></i><i style="left:-34cqw;top:30cqw;width:84cqw;height:78cqw;--rot:0deg;--bl:9cqw;border-radius:50%;background:radial-gradient(closest-side,rgba(27,77,255,0.600) 0%,rgba(27,77,255,0.582) 7%,rgba(27,77,255,0.531) 14%,rgba(27,77,255,0.456) 21%,rgba(27,77,255,0.368) 29%,rgba(27,77,255,0.279) 36%,rgba(27,77,255,0.199) 43%,rgba(27,77,255,0.134) 50%,rgba(27,77,255,0.085) 57%,rgba(27,77,255,0.050) 64%,rgba(27,77,255,0.028) 71%,rgba(27,77,255,0.015) 79%,rgba(27,77,255,0.007) 86%,rgba(27,77,255,0.003) 93%,rgba(27,77,255,0.000) 100%)"></i><i style="left:58cqw;top:34cqw;width:64cqw;height:58cqw;--rot:0deg;--bl:9cqw;border-radius:50%;background:radial-gradient(closest-side,rgba(56,214,122,0.450) 0%,rgba(56,214,122,0.436) 7%,rgba(56,214,122,0.398) 14%,rgba(56,214,122,0.342) 21%,rgba(56,214,122,0.276) 29%,rgba(56,214,122,0.209) 36%,rgba(56,214,122,0.149) 43%,rgba(56,214,122,0.100) 50%,rgba(56,214,122,0.063) 57%,rgba(56,214,122,0.038) 64%,rgba(56,214,122,0.021) 71%,rgba(56,214,122,0.011) 79%,rgba(56,214,122,0.005) 86%,rgba(56,214,122,0.003) 93%,rgba(56,214,122,0.000) 100%)"></i></div>
-<div class="bc-in">
-<img class="bc-logo" alt="nuxnce" draggable="false">
-<div class="bc-bottom">
-<div>
-<h3 class="bc-name">Milan Ferenčík</h3>
-<p class="bc-role">Director of Professional Reformation</p>
-<p class="bc-dep">Oddelenie <span class="bc-dim">hlbšieho</span> spojenia</p>
-</div>
-<div class="bc-ct"><span>milan@nuxnce.com</span><span>0951 959 082</span></div>
-</div>
-</div>
-<div class="bc-grain"></div><div class="bc-glare"></div>
-</div>
-<div class="bc-b">
-<div class="bc-mesh" aria-hidden="true"><i style="left:36cqw;top:-46cqw;width:120cqw;height:108cqw;--rot:0deg;--bl:9cqw;border-radius:50%;background:radial-gradient(closest-side,rgba(255,138,31,0.950) 0%,rgba(255,138,31,0.921) 7%,rgba(255,138,31,0.841) 14%,rgba(255,138,31,0.721) 21%,rgba(255,138,31,0.582) 29%,rgba(255,138,31,0.442) 36%,rgba(255,138,31,0.316) 43%,rgba(255,138,31,0.212) 50%,rgba(255,138,31,0.134) 57%,rgba(255,138,31,0.080) 64%,rgba(255,138,31,0.044) 71%,rgba(255,138,31,0.023) 79%,rgba(255,138,31,0.012) 86%,rgba(255,138,31,0.005) 93%,rgba(255,138,31,0.000) 100%)"></i><i style="left:-46cqw;top:-18cqw;width:126cqw;height:112cqw;--rot:0deg;--bl:9cqw;border-radius:50%;background:radial-gradient(closest-side,rgba(255,42,42,0.950) 0%,rgba(255,42,42,0.921) 7%,rgba(255,42,42,0.841) 14%,rgba(255,42,42,0.721) 21%,rgba(255,42,42,0.582) 29%,rgba(255,42,42,0.442) 36%,rgba(255,42,42,0.316) 43%,rgba(255,42,42,0.212) 50%,rgba(255,42,42,0.134) 57%,rgba(255,42,42,0.080) 64%,rgba(255,42,42,0.044) 71%,rgba(255,42,42,0.023) 79%,rgba(255,42,42,0.012) 86%,rgba(255,42,42,0.005) 93%,rgba(255,42,42,0.000) 100%)"></i><i style="left:-4cqw;top:22cqw;width:136cqw;height:104cqw;--rot:0deg;--bl:9cqw;border-radius:50%;background:radial-gradient(closest-side,rgba(27,77,255,0.950) 0%,rgba(27,77,255,0.921) 7%,rgba(27,77,255,0.841) 14%,rgba(27,77,255,0.721) 21%,rgba(27,77,255,0.582) 29%,rgba(27,77,255,0.442) 36%,rgba(27,77,255,0.316) 43%,rgba(27,77,255,0.212) 50%,rgba(27,77,255,0.134) 57%,rgba(27,77,255,0.080) 64%,rgba(27,77,255,0.044) 71%,rgba(27,77,255,0.023) 79%,rgba(27,77,255,0.012) 86%,rgba(27,77,255,0.005) 93%,rgba(27,77,255,0.000) 100%)"></i><i style="left:-30cqw;top:34cqw;width:80cqw;height:72cqw;--rot:0deg;--bl:9cqw;border-radius:50%;background:radial-gradient(closest-side,rgba(130,60,255,0.550) 0%,rgba(130,60,255,0.533) 7%,rgba(130,60,255,0.487) 14%,rgba(130,60,255,0.418) 21%,rgba(130,60,255,0.337) 29%,rgba(130,60,255,0.256) 36%,rgba(130,60,255,0.183) 43%,rgba(130,60,255,0.123) 50%,rgba(130,60,255,0.078) 57%,rgba(130,60,255,0.046) 64%,rgba(130,60,255,0.026) 71%,rgba(130,60,255,0.014) 79%,rgba(130,60,255,0.007) 86%,rgba(130,60,255,0.003) 93%,rgba(130,60,255,0.000) 100%)"></i><i style="left:52cqw;top:24cqw;width:74cqw;height:68cqw;--rot:0deg;--bl:9cqw;border-radius:50%;background:radial-gradient(closest-side,rgba(255,138,31,0.600) 0%,rgba(255,138,31,0.582) 7%,rgba(255,138,31,0.531) 14%,rgba(255,138,31,0.456) 21%,rgba(255,138,31,0.368) 29%,rgba(255,138,31,0.279) 36%,rgba(255,138,31,0.199) 43%,rgba(255,138,31,0.134) 50%,rgba(255,138,31,0.085) 57%,rgba(255,138,31,0.050) 64%,rgba(255,138,31,0.028) 71%,rgba(255,138,31,0.015) 79%,rgba(255,138,31,0.007) 86%,rgba(255,138,31,0.003) 93%,rgba(255,138,31,0.000) 100%)"></i><i style="left:14cqw;top:-8cqw;width:70cqw;height:64cqw;--rot:0deg;--bl:9cqw;border-radius:50%;background:radial-gradient(closest-side,rgba(56,214,122,0.400) 0%,rgba(56,214,122,0.388) 7%,rgba(56,214,122,0.354) 14%,rgba(56,214,122,0.304) 21%,rgba(56,214,122,0.245) 29%,rgba(56,214,122,0.186) 36%,rgba(56,214,122,0.133) 43%,rgba(56,214,122,0.089) 50%,rgba(56,214,122,0.056) 57%,rgba(56,214,122,0.034) 64%,rgba(56,214,122,0.019) 71%,rgba(56,214,122,0.010) 79%,rgba(56,214,122,0.005) 86%,rgba(56,214,122,0.002) 93%,rgba(56,214,122,0.000) 100%)"></i></div>
-<div class="bc-in">
-<img class="bc-logo" alt="" draggable="false">
-<p class="bc-msg">Please hesitate to get in touch if you don’t want to mean something.</p>
-</div>
-<div class="bc-grain"></div><div class="bc-glare"></div>
-</div>
-</div>
-</div>
-<div class="bc-ui rv"><button type="button" class="bc-flip" id="bcFlip">flip it</button><span class="bc-hint">it flips on its own · or drag it</span></div>
-</section>
-
 <footer><span>© nuxnce — difference lab</span><span style="text-transform:none">heartquartered in Bratislava, ideating globally</span></footer>
 
 <script>
@@ -2004,94 +1918,6 @@ b.addEventListener('click',function(){set(!on)});
 document.addEventListener('visibilitychange',function(){if(!ctx)return;if(document.hidden)ctx.suspend();else if(on)ctx.resume()});
 })();
 /* sound:end */
-</script>
-<script>
-/* business card */
-(function(){
-var st=document.getElementById('bcStage'),cd=document.getElementById('bcCard'),sh=document.getElementById('bcSh'),fb=document.getElementById('bcFlip');
-if(!st||!cd)return;
-var src='';try{var l=document.querySelector('.logo img');if(l)src=l.src}catch(e){}
-[].forEach.call(cd.querySelectorAll('.bc-logo'),function(i){if(src)i.src=src;else i.style.display='none'});
-/* rounded edge wall: the outline of the card (with true rounded corners) built from thin vertical strips */
-(function(){
- var A=.5,B=.3235,R=.026,N=9,pts=[],corners=[[A-R,-(B-R),-90],[A-R,B-R,0],[-(A-R),B-R,90],[-(A-R),-(B-R),180]];
- corners.forEach(function(c){for(var i=0;i<=N;i++){var f=(c[2]+90*i/N)*Math.PI/180;pts.push([c[0]+R*Math.cos(f),c[1]+R*Math.sin(f)])}});
- var first=cd.firstChild;
- for(var i=0;i<pts.length;i++){
-  var p=pts[i],q=pts[(i+1)%pts.length],dx=q[0]-p[0],dy=q[1]-p[1],len=Math.sqrt(dx*dx+dy*dy);
-  if(len<1e-6)continue;
-  var nx=dy/len,ny=-dx/len,lit=Math.max(0,nx*-.45+ny*-.89),g=Math.round(18+46*lit),b=Math.round(g*1.06);
-  var e=document.createElement('i');e.className='bc-w';
-  e.style.width='calc(var(--w)*'+len.toFixed(5)+' + 1px)';
-  e.style.marginLeft='calc(var(--w)*'+(-len/2).toFixed(5)+' - .5px)';
-  e.style.background='rgb('+g+','+g+','+b+')';
-  e.style.transform='translate3d(calc(var(--w)*'+((p[0]+q[0])/2).toFixed(5)+'),calc(var(--w)*'+((p[1]+q[1])/2).toFixed(5)+'),0) rotateZ('+(Math.atan2(dy,dx)*180/Math.PI).toFixed(3)+'deg) rotateX(90deg)';
-  cd.insertBefore(e,first);
- }
-})();
-var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches;
-var DWELL=6,K=52,C=2*.8*Math.sqrt(K),TILT=4.2;
-var n=0,ry=0,vy=0,T=0,dwell=0,dragging=false,sx=0,sy=0,sry=0,srx=0,rxd=0,moved=0,lx=0,lt=0,dv=0,visible=true,last=performance.now(),mouseX=0,mouseY=0,mx=0,my=0;
-function swayY(t){return reduce?0:14*Math.sin(t*.62)+4*Math.sin(t*1.31+.8)}
-function turn(){if(Math.abs(n*180-ry)<100){n++;dwell=0}}
-function apply(){
- var w=st.offsetWidth||500,t=T;
- var bob=reduce||dragging?0:Math.sin(t*.8)*.011*w;
- var x=reduce?0:3.4*Math.sin(t*.47+1.1)+1.2*Math.sin(t*1.1)+(dragging?0:my*-5)+rxd;
- var y=ry+(dragging||reduce?0:mx*5);
- var rad=y*Math.PI/180,c=Math.cos(rad),back=(1-c)/2;
- var z=reduce?0:-TILT*back+1.1*Math.sin(t*.5+.4)*(1-back*.6);
- cd.style.transform='translate3d(0,'+bob.toFixed(2)+'px,0) rotateZ('+z.toFixed(2)+'deg) rotateX('+x.toFixed(2)+'deg) rotateY('+y.toFixed(2)+'deg)';
- cd.style.setProperty('--gx',(50-Math.sin(rad)*(c>=0?70:-70)-mx*8).toFixed(1)+'%');
- cd.style.setProperty('--gy',(26-x*2.2).toFixed(1)+'%');
- var k=Math.abs(c);
- sh.style.transform='translateY('+(bob*-.5).toFixed(1)+'px) scaleX('+(.55+.45*k).toFixed(3)+') translateX('+(Math.sin(rad)*-8).toFixed(1)+'%)';
- sh.style.opacity=((.55+.45*k)*(1-bob/w*2)).toFixed(2);
-}
-function tick(now){
- var dt=Math.min(.04,(now-last)/1000);last=now;
- if(visible){
-  T+=dt;
-  mx+=(mouseX-mx)*Math.min(1,dt*3.5);my+=(mouseY-my)*Math.min(1,dt*3.5);
-  if(!dragging){
-   dwell+=dt;if(!reduce&&dwell>=DWELL){n++;dwell=0}
-   /* one spring drives everything: gentle sway while resting, a quick springy turn when n changes */
-   var tgt=n*180+swayY(T),a=K*(tgt-ry)-C*vy;
-   vy+=a*dt;ry+=vy*dt;
-   rxd+=(0-rxd)*Math.min(1,dt*5);
-  }
-  apply();
- }
- requestAnimationFrame(tick)
-}
-if('IntersectionObserver' in window){new IntersectionObserver(function(e){visible=e[0].isIntersecting;last=performance.now()},{rootMargin:'120px'}).observe(st)}
-st.addEventListener('pointerdown',function(e){
- if(e.button&&e.button!==0)return;
- dragging=true;moved=0;sx=e.clientX;sy=e.clientY;sry=ry;srx=rxd;lx=e.clientX;lt=performance.now();dv=0;vy=0;
- cd.classList.add('drag');try{st.setPointerCapture(e.pointerId)}catch(_){}
-});
-st.addEventListener('pointermove',function(e){
- var r=st.getBoundingClientRect();
- mouseX=Math.max(-1,Math.min(1,(e.clientX-r.left)/r.width*2-1));
- mouseY=Math.max(-1,Math.min(1,(e.clientY-r.top)/r.height*2-1));
- if(!dragging)return;
- var dx=e.clientX-sx,dy=e.clientY-sy,tn=performance.now(),dtm=Math.max(1,tn-lt);
- moved=Math.max(moved,Math.abs(dx)+Math.abs(dy));
- dv=dv*.6+((e.clientX-lx)*.55/dtm*1000)*.4;lx=e.clientX;lt=tn;
- ry=sry+dx*.55;rxd=Math.max(-30,Math.min(30,srx-dy*.2));
-});
-function end(e){
- if(!dragging)return;dragging=false;cd.classList.remove('drag');
- try{st.releasePointerCapture(e.pointerId)}catch(_){}
- if(moved<5){n=Math.round(ry/180);turn()}
- else{vy=Math.max(-500,Math.min(500,dv));n=Math.round((ry+vy*.22)/180);dwell=0} /* thrown: the spring carries it to the face it was heading for */
-}
-st.addEventListener('pointerup',end);st.addEventListener('pointercancel',end);
-st.addEventListener('pointerleave',function(){if(!dragging){mouseX=0;mouseY=0}});
-fb.addEventListener('click',turn);
-cd.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();turn()}});
-requestAnimationFrame(tick);
-})();
 </script>
 </body>
 </html>
