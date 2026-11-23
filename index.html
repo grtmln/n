@@ -1124,8 +1124,29 @@ function tube(M,cx,cz,Ro,Ri,y0,y1,seg){
     M.i.push(base,base+1,base+2,base,base+2,base+3,base+4,base+5,base+6,base+4,base+6,base+7,base+8,base+9,base+10,base+8,base+10,base+11);
   }
 }
+function ribBox(M,x0,x1,ya,yb,z0,z1){
+  var B=[.85,.85,.3,.3];
+  addQuad(M,[[x0,ya,z0],[x0,ya,z1],[x0,yb,z1],[x0,yb,z0]],[-1,0,0],B);
+  addQuad(M,[[x1,ya,z1],[x1,ya,z0],[x1,yb,z0],[x1,yb,z1]],[1,0,0],B);
+  addQuad(M,[[x1,ya,z0],[x0,ya,z0],[x0,yb,z0],[x1,yb,z0]],[0,0,-1],B);
+  addQuad(M,[[x0,ya,z1],[x1,ya,z1],[x1,yb,z1],[x0,yb,z1]],[0,0,1],B);
+  addQuad(M,[[x0,ya,z0],[x1,ya,z0],[x1,ya,z1],[x0,ya,z1]],[0,-1,0],[.85,.85,.85,.85]);
+}
+/* shallow round dimple in the ceiling under every stud */
+function dimple(M,cx,cz,R,yc,d,seg){
+  var j,a,a2,c,s,c2,s2;
+  for(j=0;j<seg;j++){
+    a=j/seg*Math.PI*2;a2=(j+1)/seg*Math.PI*2;c=Math.cos(a);s=Math.sin(a);c2=Math.cos(a2);s2=Math.sin(a2);
+    var m1=Math.max(Math.abs(c),Math.abs(s)),m2=Math.max(Math.abs(c2),Math.abs(s2));
+    addQuad(M,[[cx+R*c,yc,cz+R*s],[cx+R*c2,yc,cz+R*s2],[cx+R*c2/m2,yc,cz+R*s2/m2],[cx+R*c/m1,yc,cz+R*s/m1]],[0,-1,0],[.3,.3,.3,.3]);
+    addQuad(M,[[cx,yc+d,cz],[cx+R*c,yc+d,cz+R*s],[cx+R*c2,yc+d,cz+R*s2],[cx+R*c2,yc+d,cz+R*s2]],[0,-1,0],[.2,.2,.2,.2]);
+    addQuad(M,[[cx+R*c,yc,cz+R*s],[cx+R*c2,yc,cz+R*s2],[cx+R*c2,yc+d,cz+R*s2],[cx+R*c,yc+d,cz+R*s]],[-(c+c2)/2,0,-(s+s2)/2],[.28,.28,.2,.2]);
+  }
+}
+/* modelled on a photo of a current 2x4: 1.2 mm walls, thin tubes (6.5 / 5.1 mm), small nubs on the walls at every
+   stud position, ceiling dimples under the studs and a thin cross support joining the middle tube to the long walls */
 function underside(M,hxo,hzo,hy,r,cols,rows){
-  var t=1.5,tt=1,ox=hxo-r,oz=hzo-r,ix=hxo-t,iz=hzo-t,y0=-hy,yc=hy-tt,k,k2,i,j;
+  var t=1.2,tt=1,ox=hxo-r,oz=hzo-r,ix=hxo-t,iz=hzo-t,y0=-hy,yc=hy-tt,k,k2,i,j,c,c2;
   var O=[[-ox,-oz],[ox,-oz],[ox,oz],[-ox,oz]],I=[[-ix,-iz],[ix,-iz],[ix,iz],[-ix,iz]];
   for(k=0;k<4;k++){k2=(k+1)%4;
     addQuad(M,[[O[k][0],y0,O[k][1]],[O[k2][0],y0,O[k2][1]],[I[k2][0],y0,I[k2][1]],[I[k][0],y0,I[k][1]]],[0,-1,0],[1,1,1,1]);
@@ -1134,24 +1155,29 @@ function underside(M,hxo,hzo,hy,r,cols,rows){
   addQuad(M,[[-ix,y0,iz],[-ix,y0,-iz],[-ix,yc,-iz],[-ix,yc,iz]],[1,0,0],[.85,.85,.3,.3]);
   addQuad(M,[[ix,y0,iz],[-ix,y0,iz],[-ix,yc,iz],[ix,yc,iz]],[0,0,-1],[.85,.85,.3,.3]);
   addQuad(M,[[-ix,y0,-iz],[ix,y0,-iz],[ix,yc,-iz],[-ix,yc,-iz]],[0,0,1],[.85,.85,.3,.3]);
-  addQuad(M,[[-ix,yc,-iz],[ix,yc,-iz],[ix,yc,iz],[-ix,yc,iz]],[0,-1,0],[.3,.3,.3,.3]);
-  for(i=0;i<cols-1;i++)for(j=0;j<rows-1;j++)tube(M,-cols*4+8+i*8,-rows*4+8+j*8,3.255,2.4,y0+.1,yc,40);
-  /* thin ribs on the inner walls at every stud position (long walls; all four walls on a square brick) */
-  var w=.4,pr=.75,ya=y0+.25,c;
+  var DR=1.15,xs=[-ix,ix],zs=[-iz,iz],a,b;
+  for(i=0;i<cols;i++){c=-cols*4+4+i*8;xs.push(c-DR,c+DR)}
+  for(j=0;j<rows;j++){c=-rows*4+4+j*8;zs.push(c-DR,c+DR)}
+  xs.sort(function(u,v){return u-v});zs.sort(function(u,v){return u-v});
+  for(a=0;a<xs.length-1;a++)for(b=0;b<zs.length-1;b++){
+    if(xs[a+1]-xs[a]<1e-4||zs[b+1]-zs[b]<1e-4)continue;
+    var mx=(xs[a]+xs[a+1])/2,mz=(zs[b]+zs[b+1])/2,hole=false;
+    for(i=0;i<cols;i++)for(j=0;j<rows;j++)if(Math.abs(mx-(-cols*4+4+i*8))<DR&&Math.abs(mz-(-rows*4+4+j*8))<DR)hole=true;
+    if(!hole)addQuad(M,[[xs[a],yc,zs[b]],[xs[a+1],yc,zs[b]],[xs[a+1],yc,zs[b+1]],[xs[a],yc,zs[b+1]]],[0,-1,0],[.3,.3,.3,.3]);
+  }
+  for(i=0;i<cols-1;i++)for(j=0;j<rows-1;j++)tube(M,-cols*4+8+i*8,-rows*4+8+j*8,3.255,2.55,y0+.1,yc,40);
+  for(i=0;i<cols;i++)for(j=0;j<rows;j++)dimple(M,-cols*4+4+i*8,-rows*4+4+j*8,DR,yc,.3,24);
+  var w=.18,pr=.32,ya=y0+.2;
   for(j=0;j<rows;j++){c=-rows*4+4+j*8;
     ribBox(M,ix-pr,ix,ya,yc,c-w,c+w);ribBox(M,-ix,-ix+pr,ya,yc,c-w,c+w);
   }
-  if(cols===rows)for(i=0;i<cols;i++){c=-cols*4+4+i*8;
+  for(i=0;i<cols;i++){c=-cols*4+4+i*8;
     ribBox(M,c-w,c+w,ya,yc,iz-pr,iz);ribBox(M,c-w,c+w,ya,yc,-iz,-iz+pr);
   }
-}
-function ribBox(M,x0,x1,ya,yb,z0,z1){
-  var B=[.85,.85,.3,.3];
-  addQuad(M,[[x0,ya,z0],[x0,ya,z1],[x0,yb,z1],[x0,yb,z0]],[-1,0,0],B);
-  addQuad(M,[[x1,ya,z1],[x1,ya,z0],[x1,yb,z0],[x1,yb,z1]],[1,0,0],B);
-  addQuad(M,[[x1,ya,z0],[x0,ya,z0],[x0,yb,z0],[x1,yb,z0]],[0,0,-1],B);
-  addQuad(M,[[x0,ya,z1],[x1,ya,z1],[x1,yb,z1],[x0,yb,z1]],[0,0,1],B);
-  addQuad(M,[[x0,ya,z0],[x1,ya,z0],[x1,ya,z1],[x0,ya,z1]],[0,-1,0],[.85,.85,.85,.85]);
+  if(cols===2&&rows===4){
+    c=-rows*4+8+8;
+    ribBox(M,-ix,-3,y0+.4,yc,c-.25,c+.25);ribBox(M,3,ix,y0+.4,yc,c-.25,c+.25);
+  }
 }
 function brick(cols,rows){
   var M=new Mesh(),hx=cols*4,hz=rows*4,hy=4.8,i,j;
