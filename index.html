@@ -1871,7 +1871,7 @@ cv.addEventListener('webglcontextlost',function(e){e.preventDefault();run=false;
 /* logo colour: drifts through pale tints of the background colours, always checked against the real backdrop */
 (function(){
 var m=document.getElementById('logoM');if(!m||matchMedia('(prefers-reduced-motion:reduce)').matches)return;
-var RED=[255,138,144],PAL=[RED,[138,168,255],RED,[255,168,88],RED,[200,248,225]],W=[255,255,255],K=[10,10,18],cur=W.slice(),idx=-1,tw=0;
+var RED=[255,138,144],BL=[138,168,255],OR=[255,168,88],GR=[200,248,225],PAL=[RED,BL,RED,OR,RED,RED,GR,BL,RED,OR,RED,GR],W=[255,255,255],K=[10,10,18],cur=W.slice(),idx=-1,tw=0;
 function lin(c){c/=255;return c<=.03928?c/12.92:Math.pow((c+.055)/1.055,2.4)}
 function L(c){return .2126*lin(c[0])+.7152*lin(c[1])+.0722*lin(c[2])}
 function cr(a,b){var x=L(a),y=L(b);return(Math.max(x,y)+.05)/(Math.min(x,y)+.05)}
@@ -1890,7 +1890,7 @@ function pick(){
   for(i=1;i<=PAL.length;i++){c=PAL[(idx+i)%PAL.length];if(worst(c)>=3.4){idx=(idx+i)%PAL.length;return c}}
   return worst(W)>=worst(K)?W:K;
 }
-setTimeout(function step(){go(pick(),4500);setTimeout(step,13000)},3400);
+setTimeout(function step(){go(pick(),4500);setTimeout(step,13000)},16000);
 /* between changes: if the backdrop moved under the logo and the contrast fell, correct at once */
 setInterval(function(){if(worst(cur)<3&&!document.hidden){var c=pick();go(c,1600)}},1200);
 })();
