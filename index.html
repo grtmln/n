@@ -50,6 +50,7 @@ nav a:hover{opacity:1}
 @keyframes logoOff{0%{opacity:1;animation-timing-function:cubic-bezier(.9,0,1,1)}7%{opacity:.42;animation-timing-function:ease-out}15%{opacity:.62;animation-timing-function:cubic-bezier(.3,.6,.35,1)}100%{opacity:.16}}
 .logo img.lo{animation:logoOff 1.5s linear forwards}.logo img.li{animation:logoOn 1.4s linear forwards}
 .logo{cursor:pointer}
+.logo img{filter:url(#logoTint)}
 :root[data-theme="dark"] .grain{opacity:.7}
 @media (prefers-reduced-motion:reduce){.logo img{animation:none}.logo img.lo{opacity:.16;animation:none}.logo img.li{animation:none}}
 .logo img{height:22px;width:auto;display:block;max-width:100%}
@@ -405,6 +406,7 @@ radial-gradient(40% 58% at 16% 80%,color-mix(in srgb,var(--c1) 70%,transparent) 
 <div class="bg"><canvas id="bgc" aria-hidden="true"></canvas><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="blob b4"></div></div>
 <svg class="grain" width="100%" height="100%" aria-hidden="true"><filter id="gn" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="1.4" numOctaves="4" seed="7"/><feColorMatrix type="saturate" values=".4"/><feComponentTransfer><feFuncR type="linear" slope="2" intercept="-.5"/><feFuncG type="linear" slope="2" intercept="-.5"/><feFuncB type="linear" slope="2" intercept="-.5"/><feFuncA type="linear" slope="0" intercept="1"/></feComponentTransfer></filter><rect width="100%" height="100%" filter="url(#gn)"/></svg>
 <div id="cur"><img alt="" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjEwNzYgMzUgNjkyIDQyNiIgd2lkdGg9IjY5MiIgaGVpZ2h0PSI0MjYiPjxnIGZpbGw9IiNmZmYiIGZpbGwtcnVsZT0iZXZlbm9kZCI+PHBhdGggZD0iTTExNzggNTUgTDEzMTIgMjQ4IEwxMDk2IDQ0MCBMMTI5MyA0NDAgTDE0MDQgMzI5IEwxNDY4IDQ0MCBMMTY2NiA0NDAgTDE1MzEgMjQ3IEwxNDQzIDI0NyBMMTQ0MCAyNDUgTDE1NzMgMTI0IEwxNjcxIDEyMyBMMTc0NyA1NiBMMTU1MCA1NSBMMTQzOCAxNjYgTDEzNzQgNTVaIi8+PC9nPjwvc3ZnPg=="></div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><filter id="logoTint" color-interpolation-filters="sRGB" x="0" y="0" width="100%" height="100%"><feColorMatrix id="logoM" type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 1 0"/></filter></svg>
 <nav>
 <a class="logo" href="#top" aria-label="nuxnce"><img alt="nuxnce" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjIwIDIwIDM0ODAgNDIwIiB3aWR0aD0iMzQ4MCIgaGVpZ2h0PSI0MjAiPjxnIGZpbGw9IiNmZmYiIGZpbGwtcnVsZT0iZXZlbm9kZCI+PHBhdGggZD0iTTU3NyA5OCBMNTU4IDc4IEw1NDAgNjcgTDUxMyA1NyBMNDc2IDUwIEw0MjEgNDkgTDM2NCA1NyBMMzA4IDc0IEwyNDUgMTA1IEwyNDMgMTA0IEwyNTIgNTUgTDEwMCA1NiBMNDkgMjk1IEwxMTMgMjk2IEwxMTggMjk4IEw4NyA0NDAgTDE3MSA0MzkgTDIxNSAyMzMgTDI0MyAyMTQgTDI3NiAxOTggTDMwOSAxODggTDMzMyAxODQgTDM3MCAxODQgTDM5OCAxOTEgTDQxNSAyMDMgTDQyMiAyMTMgTDQyNyAyMjcgTDQyOCAyNTMgTDQyNSAyNzUgTDM5MCA0MzkgTDU0MiA0NDAgTDU1OSAzNjcgTDU5NiAxODYgTDU5NyAxNjEgTDU5MyAxMzMgTDU4OCAxMThaIi8+PHBhdGggZD0iTTYzOCA1NiBMNTk0IDI2MCBMNTg1IDMxMCBMNTg1IDM0NiBMNTg5IDM2NiBMNTk5IDM5MCBMNjE3IDQxMiBMNjM3IDQyNiBMNjcwIDQzOSBMNzE0IDQ0NiBMNzY0IDQ0NiBMODEwIDQ0MCBMODQ5IDQzMCBMODkzIDQxMyBMOTM2IDM5MSBMOTM3IDM5NiBMOTI5IDQ0MCBMMTA4MSA0NDAgTDExNjIgNTUgTDEwMTAgNTYgTDk2NSAyNjQgTDkzNCAyODQgTDkxNiAyOTMgTDg4MiAzMDUgTDg1MSAzMTEgTDgwOSAzMTEgTDc5NiAzMDkgTDc3NiAzMDEgTDc2MyAyODkgTDc1NyAyNzggTDc1MyAyNjIgTDc1MyAyNDIgTDc1OSAyMDUgTDY5MCAyMDUgTDY4MiAyMDMgTDcxNCA1NloiLz48cGF0aCBkPSJNMTE3OCA1NSBMMTMxMiAyNDggTDEwOTYgNDQwIEwxMjkzIDQ0MCBMMTQwNCAzMjkgTDE0NjggNDQwIEwxNjY2IDQ0MCBMMTUzMSAyNDcgTDE0NDMgMjQ3IEwxNDQwIDI0NSBMMTU3MyAxMjQgTDE2NzEgMTIzIEwxNzQ3IDU2IEwxNTUwIDU1IEwxNDM4IDE2NiBMMTM3NCA1NVoiLz48cGF0aCBkPSJNMjI0MyAxMDQgTDIyMzUgOTMgTDIyMTcgNzYgTDIxODIgNTkgTDIxMzggNTAgTDIwODQgNDkgTDIwNDAgNTQgTDE5ODkgNjcgTDE5NDkgODMgTDE5MDYgMTA2IEwxOTE0IDU1IEwxODU0IDU2IEwxNzk5IDI0OCBMMTc5NyAyNTAgTDE3MjAgMjUxIEwxNjgwIDQ0MCBMMTgzMyA0NDAgTDE4NzggMjMyIEwxOTAzIDIxNSBMMTkyNiAyMDMgTDE5NjMgMTkwIEwxOTk2IDE4NCBMMjAzMyAxODQgTDIwNTggMTkwIEwyMDc4IDIwNCBMMjA4OCAyMjIgTDIwOTAgMjMzIEwyMDg4IDI2OCBMMjA1MiA0NDAgTDIyMDUgNDQwIEwyMjU4IDE4NyBMMjI1OSAxNjMgTDIyNTcgMTQyIEwyMjUxIDEyMFoiLz48cGF0aCBkPSJNMjc3MSAxMjUgTDI3NTYgMTA1IEwyNzI5IDgzIEwyNjk1IDY3IEwyNjU0IDU2IEwyNTkzIDQ5IEwyNTMyIDQ5IEwyNDc1IDU1IEwyNDQ0IDYyIEwyNDIyIDE2NiBMMjI5MCAxNjcgTDIyNzMgMjAwIEwyMjY1IDIyMyBMMjI1OCAyNTAgTDIyNTMgMjg2IEwyMjU1IDMyOCBMMjI1OSAzNDUgTDIyNjcgMzY1IEwyMjc5IDM4NCBMMjI5NCAzOTkgTDIzMjQgNDE5IEwyMzY0IDQzNCBMMjQxNyA0NDQgTDI0NDIgNDQ2IEwyNTE0IDQ0NiBMMjU3NSA0MzkgTDI2MTAgNDMxIEwyNjUxIDQxNiBMMjY4OSAzOTUgTDI3MTIgMzc3IEwyNzI4IDM2MSBMMjc0MSAzNDUgTDI3NTggMzE4IEwyNzc1IDI3NSBMMjYyNyAyNzQgTDI2MTkgMjc4IEwyNTk1IDMwMCBMMjU2OSAzMTIgTDI1MzMgMzE4IEwyNDcwIDMxNyBMMjQ0MSAzMTAgTDI0MjYgMzAxIEwyNDE3IDI5MSBMMjQxMSAyNzQgTDI0MTEgMjU2IEwyNDE3IDIzMiBMMjQzMCAyMTAgTDI0NTAgMTkzIEwyNDc4IDE4MiBMMjUwMyAxNzggTDI1NTQgMTc3IEwyNTc2IDE3OSBMMjYwMCAxODUgTDI2MTcgMTk2IEwyNzg3IDE5NiBMMjc4OCAxODEgTDI3ODEgMTQ2WiIvPjxwYXRoIGQ9Ik0zMzM1IDE1MiBMMzE1OCAxNTEgTDMxNTggMTQzIEwzMTc1IDU1IEwzMTI0IDQ5IEwzMDUxIDUwIEwzMDA2IDU2IEwyOTU2IDY4IEwyOTA5IDg4IEwyODc5IDEwNyBMMjg1MSAxMzIgTDI4MjUgMTY1IEwyODA0IDIwOCBMMjc5MiAyNTEgTDI3ODcgMjkwIEwyNzkwIDMzMSBMMjk0MCAzMzIgTDI5NDEgMzM1IEwyOTIwIDQzNSBMMjkyMSA0MzkgTDI5NzMgNDQ2IEwzMDQzIDQ0NiBMMzA5NCA0NDEgTDMxNTEgNDI4IEwzMTk5IDQwOCBMMzIyMiAzOTQgTDMyNDIgMzc4IEwzMjc0IDM0MiBMMzI4NSAzMjQgTDMyOTcgMjk3IEwzMTY0IDI5NiBMMzE0NyAyOTkgTDMxMTggMzEzIEwzMDkzIDMyMSBMMzA2MiAzMjUgTDMwMTUgMzI1IEwyOTg4IDMyMCBMMjk2NSAzMDkgTDI5NTMgMjk3IEwyOTQxIDI3NSBMMzMxMCAyNzNaTTI5NjYgMTk2IEwyOTkzIDE3MyBMMzAxOSAxNjIgTDMwNDIgMTU4IEwzMTAyIDE1OCBMMzEyOCAxNjMgTDMxNDUgMTcyIEwzMTY1IDE5NVoiLz48cGF0aCBkPSJNMzM1MyA0NyBMMzM1MSA1OSBMMzM0MyA2MCBMMzM0MSA2OSBMMzM0OCA3MSBMMzM0NCA5MCBMMzM0NCAxMDEgTDMzNTEgMTA2IEwzMzY5IDEwNiBMMzM3MSA5NiBMMzM2MCA5NiBMMzM1OCA5NCBMMzM2MyA3MCBMMzM3OCA3MCBMMzM4MCA2MCBMMzM2NiA2MCBMMzM2NyA0N1oiLz48cGF0aCBkPSJNMzM5MCA2MCBMMzM4MCAxMDYgTDMzOTQgMTA2IEwzNDAwIDc5IEwzNDA3IDcwIEwzNDExIDY5IEwzNDE2IDcyIEwzNDE2IDgxIEwzNDEwIDEwNiBMMzQyNCAxMDYgTDM0MzAgNzkgTDM0MzcgNzAgTDM0NDEgNjkgTDM0NDYgNzIgTDM0NDYgODEgTDM0NDAgMTA2IEwzNDU0IDEwNiBMMzQ2MSA3NiBMMzQ2MSA2OCBMMzQ1OCA2MiBMMzQ1MiA1OSBMMzQ0NSA1OSBMMzQzMSA2NyBMMzQyOCA2MiBMMzQyMiA1OSBMMzQxMCA2MSBMMzQwNCA2NiBMMzQwNCA2MFoiLz48L2c+PC9zdmc+"></a>
 <button type="button" class="snd" id="snd" aria-pressed="false" aria-label="Sound off"><span class="snd-eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="snd-t">sound off</span></button>
@@ -1850,13 +1852,48 @@ var mx=0,my=0,tx=0,ty=0,sc=0;addEventListener('pointermove',function(e){tx=e.cli
 var rm=matchMedia('(prefers-reduced-motion:reduce)').matches,run=true,t0=performance.now();
 function draw(){var n=(performance.now()-t0)/1000;for(var i=0;i<cur.length;i++)cur[i]+=(tgt[i]-cur[i])*.06;
   gl.uniform3f(uC1,cur[0],cur[1],cur[2]);gl.uniform3f(uC2,cur[3],cur[4],cur[5]);gl.uniform3f(uC3,cur[6],cur[7],cur[8]);gl.uniform3f(uC4,cur[9],cur[10],cur[11]);gl.uniform3f(uB,cur[12],cur[13],cur[14]);gl.uniform4f(uW,cur[15],cur[16],cur[17],cur[18]);gl.uniform1f(uK,cur[19]);mx+=(tx-mx)*.045;my+=(ty-my)*.035;var st=scrollY/(ch||innerHeight);if(!started){sc=st}else sc+=(st-sc)*.05;
- gl.uniform2f(uR,w,hh);gl.uniform1f(uT,rm?3.:n);gl.uniform2f(uM,mx,my);gl.uniform1f(uS,sc);gl.drawArrays(gl.TRIANGLE_STRIP,0,4)}
+ gl.uniform2f(uR,w,hh);gl.uniform1f(uT,rm?3.:n);gl.uniform2f(uM,mx,my);gl.uniform1f(uS,sc);gl.drawArrays(gl.TRIANGLE_STRIP,0,4);
+ /* every half second read three pixels of the background behind the logo (for the logo's colour contrast) */
+ var nw=performance.now();if(nw-lastS>500){lastS=nw;var li=document.querySelector('.logo img');
+  if(li){var r=li.getBoundingClientRect(),out=[],k,px=new Uint8Array(4);
+   for(k=0;k<3;k++){var x=Math.max(0,Math.min(w-1,Math.round((r.left+r.width*(.15+.35*k))/innerWidth*w))),y=Math.max(0,Math.min(hh-1,Math.round((1-(r.top+r.height/2)/innerHeight)*hh)));
+    gl.readPixels(x,y,1,1,gl.RGBA,gl.UNSIGNED_BYTE,px);out.push([px[0],px[1],px[2]])}
+   window.__nxBg=out}}}
+var lastS=0;
 function loop(){if(!run)return;draw();requestAnimationFrame(loop)}
 bg.classList.remove('nogl');bg.classList.add('gl');draw();started=true;requestAnimationFrame(function(){bg.classList.add('on')});loop();
 document.addEventListener('visibilitychange',function(){run=!document.hidden;if(run)loop()});
 cv.addEventListener('webglcontextlost',function(e){e.preventDefault();run=false;bg.classList.remove('gl');bg.classList.add('nogl')});
 })();
 /* bg:end */
+</script>
+<script>
+/* logo colour: drifts through pale tints of the background colours, always checked against the real backdrop */
+(function(){
+var m=document.getElementById('logoM');if(!m||matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+var RED=[255,138,144],PAL=[RED,[138,168,255],RED,[255,168,88],RED,[200,248,225]],W=[255,255,255],K=[10,10,18],cur=W.slice(),idx=-1,tw=0;
+function lin(c){c/=255;return c<=.03928?c/12.92:Math.pow((c+.055)/1.055,2.4)}
+function L(c){return .2126*lin(c[0])+.7152*lin(c[1])+.0722*lin(c[2])}
+function cr(a,b){var x=L(a),y=L(b);return(Math.max(x,y)+.05)/(Math.min(x,y)+.05)}
+/* what the viewer sees behind the logo: sampled background under the translucent nav tint */
+function back(){var s=window.__nxBg;if(!s)return[[20,20,28]];return s.map(function(c){return[c[0]*.73+6*.27,c[1]*.73+6*.27,c[2]*.73+10*.27]})}
+function worst(c){var b=back(),m=99,i;for(i=0;i<b.length;i++)m=Math.min(m,cr(c,b[i]));return m}
+function set(c){cur=c;m.setAttribute('values','0 0 0 0 '+(c[0]/255).toFixed(3)+' 0 0 0 0 '+(c[1]/255).toFixed(3)+' 0 0 0 0 '+(c[2]/255).toFixed(3)+' 0 0 0 1 0')}
+function go(to,ms){
+  var from=cur.slice(),t0=performance.now(),id=++tw;
+  (function f(now){if(id!==tw)return;var k=Math.min(1,(now-t0)/ms);k=k*k*(3-2*k);
+    set([0,1,2].map(function(i){return Math.round(from[i]+(to[i]-from[i])*k)}));if(k<1)requestAnimationFrame(f)})(t0);
+}
+/* next tint in the cycle that reads on the current backdrop; otherwise white or near-black, whichever is better */
+function pick(){
+  var i,c;
+  for(i=1;i<=PAL.length;i++){c=PAL[(idx+i)%PAL.length];if(worst(c)>=3.4){idx=(idx+i)%PAL.length;return c}}
+  return worst(W)>=worst(K)?W:K;
+}
+setTimeout(function step(){go(pick(),4500);setTimeout(step,13000)},3400);
+/* between changes: if the backdrop moved under the logo and the contrast fell, correct at once */
+setInterval(function(){if(worst(cur)<3&&!document.hidden){var c=pick();go(c,1600)}},1200);
+})();
 </script>
 <script>
 (function(){var l=document.getElementById('cf-cl'),g=document.getElementById('cf-gb');if(!l||!g)return;
